@@ -11990,9 +11990,9 @@ over both parameters simultaneously, or if possible, individually.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The values which maximize the likelihood will also maximize its log-likelihood
-The log-likelihood can be written as follows:</p>
-<p>$$
+<p>The values which maximize the likelihood will also maximize its log-likelihood.</p>
+<p>The log-likelihood can be written as follows:
+$$
 \log\Big( \mathcal{L} (\mu,\sigma)\Big) = -\frac{\,n\,}{2} \log(2\pi\sigma^2)</p>
 <ul>
 <li>\frac{1}{2\sigma^2} \sum_{i=1}^{n} (\,x_i-\mu\,)^2
@@ -12173,7 +12173,6 @@ which follows a t-distribution with $n-1$ degrees of freedom.</p>
 <li><p>Set the significance level, $\alpha$, the probability of making a Type I error to be small — 0.01, 0.05, or 0.10. Compare the P-value to $\alpha$. If the P-value is less than (or equal to) $\alpha$, reject the null hypothesis in favor of the alternative hypothesis. If the P-value is greater than $\alpha$, do not reject the null hypothesis.</p>
 </li>
 </ol>
-<p>From [<a href="https://newonlinecourses.science.psu.edu/statprogram/reviews/statistical-concepts/hypothesis-testing/p-value-approach">https://newonlinecourses.science.psu.edu/statprogram/reviews/statistical-concepts/hypothesis-testing/p-value-approach</a>]</p>
 
 </div>
 </div>
@@ -12191,7 +12190,7 @@ which follows a t-distribution with $n-1$ degrees of freedom.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Welch's-t-test">The Welch's t-test<a class="anchor-link" href="#The-Welch's-t-test">&#182;</a></h2><p>It is used only when the two population variances are not assumed to be equal.</p>
+<h2 id="The-Welch's-t-test">The Welch's t-test<a class="anchor-link" href="#The-Welch's-t-test">&#182;</a></h2><p>It is used only when the two unknown population variances $\sigma_1\neq\sigma_2$ are not assumed to be equal.</p>
 <p>Welch's ''t''-test defines the statistic ''t'' by the following formula:</p>
 <p>$$
 t \quad = \quad {\; \overline{X}_1 - \overline{X}_2 \; \over \sqrt{ \; {s_1^2 \over N_1} \; + \; {s_2^2 \over N_2} \quad }}\,
@@ -12203,9 +12202,14 @@ $$</p>
  {{\left( \; {s_1^2 \over N_1} \; + \; {s_2^2 \over N_2} \; \right)^2 } \over
  { \quad {s_1^4 \over N_1^2 \nu_1} \; + \; {s_2^4 \over N_2^2 \nu_2 } \quad }}
 $$</p>
-<p>Here $\nu_1 = N_1-1$, the degrees of freedom associated with the first variance estimate.
-$\nu_2 = N_2-1$, the degrees of freedom associated with the 2nd variance estimate.</p>
+<p>Here</p>
+<ul>
+<li>$\nu_1 = N_1-1$, the degrees of freedom associated with the first variance estimate.</li>
+<li>$\nu_2 = N_2-1$, the degrees of freedom associated with the 2nd variance estimate.</li>
+</ul>
+<p>With the degrees of freedom and the t-score, we can use a t-table or a t-distribution calculator to determine the p-value. If the p-value is less than the significance level, then we can conclude that our data is statistically significant and the null hypothesis will be rejected.</p>
 <p>Welch's ''t''-test can also be calculated for ranked data and might then be named Welch's ''U''-test.</p>
+<p><a href="https://codingdisciple.com/hypothesis-testing-welch-python.html">https://codingdisciple.com/hypothesis-testing-welch-python.html</a></p>
 
 </div>
 </div>
@@ -12308,15 +12312,6 @@ $\nu_2 = N_2-1$, the degrees of freedom associated with the 2nd variance estimat
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>[<a href="https://machinelearningmastery.com/chi-squared-test-for-machine-learning/">https://machinelearningmastery.com/chi-squared-test-for-machine-learning/</a>]</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>[<a href="https://codingdisciple.com/hypothesis-testing-welch-python.html">https://codingdisciple.com/hypothesis-testing-welch-python.html</a>]</p>
 
 </div>
 </div>
