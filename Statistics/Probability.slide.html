@@ -12148,6 +12148,9 @@ one can prove that $\dfrac{d^{(k)}}{d^k t}M_x(t)\vert_{t=0}=\mu_k$, from which o
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="The-central-limit-theorem">The central limit theorem<a class="anchor-link" href="#The-central-limit-theorem">&#182;</a></h2><p>The central limit theorem states that when an infinite number of successive random samples are taken from a population, the sampling distribution of the means of those samples will become approximately normally distributed with mean $\mu$ and standard deviation $\sigma/\sqrt{N}$ as the sample size (N) becomes larger, irrespective of the shape of the population distribution.</p>
+<p>$$
+z = \dfrac{\bar x-\mu}{\sigma/\sqrt{n}} \sim N(0,1)
+$$</p>
 
 </div>
 </div>
@@ -12875,7 +12878,45 @@ $$\operatorname{K}_{\mathbf{X}\mathbf{X}}=\operatorname{V}(\mathbf{X}) = \operat
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The correlation coeffcient $\rho_{x,y}$ between $x$ and $y$, 
 $$
-\rho_{x,y}=\dfrac{K_{xy}}{\sqrt{K_{xx}}\cdot \sqrt{K_{yy}}}=\dfrac{K_{xy}}{D[x]\cdot D[y]}
+\rho_{x,y}=\rho=\dfrac{K_{xy}}{\sqrt{K_{xx}}\cdot \sqrt{K_{yy}}}=\dfrac{K_{xy}}{D[x]\cdot D[y]}
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Non-independent-variables">Non-independent variables<a class="anchor-link" href="#Non-independent-variables">&#182;</a></h2><p>It may be the case that variables are correlated (not independent).</p>
+<p>Suppose one constructs an order-$n$  Gaussian vector out of random variables $(x_1,\ldots,x_n)$, where each variable has means given by $(\mu_1, \ldots, \mu_n)$.
+Let the covariance matrix be denoted by $\mathit\Sigma$.</p>
+<p>The joint probability density function of these $n$ random variables is then given by:</p>
+<p>$$
+f(x_1,\ldots,x_n)=\frac{1}{(2\pi)^{n/2}\sqrt{\text{det}(\mathit\Sigma)}} \exp\left( -\frac{1}{2} \left[x_1-\mu_1,\ldots,x_n-\mu_n\right]\mathit\Sigma^{-1}\left[x_1-\mu_1,\ldots,x_n-\mu_n\right]^\mathrm{T} \right)
+$$</p>
+<ul>
+<li>In the two variable case, 
+$$
+\mathit\Sigma^{-1} = \dfrac{1}{\text{det}(\mathit\Sigma)}
+\begin{bmatrix}
+K_{\mathit{XX}} &amp; K_{\mathit{XY}} \\
+K_{\mathit{YX}} &amp; K_{\mathit{YY}}
+\end{bmatrix}
+= \dfrac{1}{\text{det}(\mathit\Sigma)}
+\begin{bmatrix}
+\sigma^2_x &amp;  \operatorname{cov}(X,Y) \\
+\operatorname{cov}(X,Y) &amp; \sigma^2_y
+\end{bmatrix}
+$$
+where $\operatorname{cov}(X,Y)=\rho \sigma_x\sigma_y$ and $\dfrac{1}{\text{det}(\mathit\Sigma)}=\sigma^2_x\sigma^2_y(1-\rho^2)$. The joint probability density function is given by:
+$$f(x,y) = \frac{1}{2\pi \sigma_x \sigma_y \sqrt{1-\rho^2}} \exp\left[ -\frac{1}{2(1-\rho^2)} \left(\frac{(x-\mu_x)^2}{\sigma_x^2} - \frac{2\rho(x-\mu_x)(y-\mu_y)}{\sigma_x\sigma_y} + \frac{(y-\mu_y)^2}{\sigma_y^2}\right) \right] 
+$$</li>
+</ul>
+<p>If the correlation coefficient $\rho=0$, the two variables become independent
+$$
+f(x,y) = \frac{1}{2\pi \sigma_x \sigma_y} \exp\left[ -\frac{1}{2} \left(\frac{(x-\mu_x)^2}{\sigma_x^2} + \frac{(y-\mu_y)^2}{\sigma_y^2}\right) \right]
+=f(x)*f(y)
 $$</p>
 
 </div>
