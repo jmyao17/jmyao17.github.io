@@ -11909,7 +11909,7 @@ a.anchor-link {
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11924,7 +11924,7 @@ $$</li>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11940,7 +11940,7 @@ $$</p>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11960,7 +11960,7 @@ $$
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11982,7 +11982,7 @@ $$</p>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -11994,7 +11994,7 @@ over both parameters simultaneously, or if possible, individually.</p>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12002,11 +12002,8 @@ over both parameters simultaneously, or if possible, individually.</p>
 <p>The values which maximize the likelihood will also maximize its log-likelihood.</p>
 <p>The log-likelihood can be written as follows:
 $$
-\log\Big( \mathcal{L} (\mu,\sigma)\Big) = -\frac{\,n\,}{2} \log(2\pi\sigma^2)</p>
-<ul>
-<li>\frac{1}{2\sigma^2} \sum_{i=1}^{n} (\,x_i-\mu\,)^2
-$$</li>
-</ul>
+\log\Big( \mathcal{L} (\mu,\sigma)\Big) = -\frac{\,n\,}{2} \log(2\pi\sigma^2)- \frac{1}{2\sigma^2} \sum_{i=1}^{n} (\,x_i-\mu\,)^2
+$$</p>
 <ul>
 <li>derivatives of this log-likelihood:</li>
 </ul>
@@ -12024,7 +12021,7 @@ Its expected value is equal to the parameter $\mu$ of the given distribution,</p
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12048,7 +12045,7 @@ $</p>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12078,7 +12075,7 @@ $$</p>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12100,7 +12097,7 @@ which depends on the degree-of-freedom $n-1$.</p>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12130,7 +12127,7 @@ $$</p>
 
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12155,19 +12152,12 @@ $$</p>
 <h3 id="with-unknown-$\sigma_1\neq-\sigma_2$">with unknown $\sigma_1\neq \sigma_2$<a class="anchor-link" href="#with-unknown-$\sigma_1\neq-\sigma_2$">&#182;</a></h3>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hypothesis-Test">Hypothesis Test<a class="anchor-link" href="#Hypothesis-Test">&#182;</a></h1><h2 id="The-P-value">The P-value<a class="anchor-link" href="#The-P-value">&#182;</a></h2><p>It involves determining "likely" or "unlikely" by determining the probability — assuming the null hypothesis were true — of observing a more extreme test statistic in the direction of the alternative hypothesis than the one observed.</p>
-<ul>
-<li><p>If the P-value is small, say less than (or equal to) $\alpha$, then it is "unlikely." And the null hypothesis is rejected in favor of the alternative hypothesis.</p>
-</li>
-<li><p>If the P-value is large, say more than $\alpha$, then it is "likely." And then the null hypothesis is not rejected.</p>
-</li>
-</ul>
-<p>Four steps involved in using the P-value approach to conducting any hypothesis test:</p>
+<h1 id="Hypothesis-Test">Hypothesis Test<a class="anchor-link" href="#Hypothesis-Test">&#182;</a></h1><p>General procedure:</p>
 <ol>
 <li>Specify the null and alternative hypotheses.</li>
 <li>Using the sample data and assuming the null hypothesis is true, calculate the value of the test statistic. Again, to conduct the hypothesis test for the <strong>population mean $\mu$</strong>, we use the t-statistic </li>
@@ -12190,7 +12180,50 @@ which follows a t-distribution with $n-1$ degrees of freedom.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-P-value">The P value<a class="anchor-link" href="#The-P-value">&#182;</a></h2><p>The p-value is defined as the probability (for a given statistical model, when the null hypothesis $H_0$ is true) of obtaining the statistical summary (such as the sample mean difference between two compared groups) greater (more extreme) than or equal to the actual observed results.</p>
+<ul>
+<li><p>If the P-value is small, say less than (or equal to) $\alpha$, then it is "unlikely." And the null hypothesis is rejected in favor of the alternative hypothesis.</p>
+</li>
+<li><p>If the P-value is large, say more than $\alpha$, then it is "likely." And then the null hypothesis is not rejected.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="The-student-t-test">The student t-test<a class="anchor-link" href="#The-student-t-test">&#182;</a></h2><p><a href="https://en.wikipedia.org/wiki/Student%27s_t-test">https://en.wikipedia.org/wiki/Student%27s_t-test</a></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Welch's-t-test">The Welch's t-test<a class="anchor-link" href="#The-Welch's-t-test">&#182;</a></h2><p>It is used only when the two unknown population variances $\sigma_1\neq\sigma_2$ are not assumed to be equal.</p>
+<p>Welch's ''t''-test defines the statistic ''t'' by the following formula:</p>
+<p>$$
+t \quad = \quad {\; \overline{X}_1 - \overline{X}_2 \; \over \sqrt{ \; {s_1^2 \over n_1} \; + \; {s_2^2 \over n_2} \quad }}\,
+$$</p>
+<p>where $\overline{X}_1$,$s_1^2$ and $N_1$ are the 1st sample mean, sample variance and sample size, respectively.  Unlike in Student's t test, the denominator is ''not'' based on a pooled variance estimate.</p>
+<p>The degrees of freedom (statistics) $\nu$ associated with this variance estimate is approximated using the Welch–Satterthwaite equation:</p>
+<p>$$
+\nu \quad  \approx \quad
+ {{\left( \; {s_1^2 \over n_1} \; + \; {s_2^2 \over n_2} \; \right)^2 } \over
+ { \quad {s_1^4 \over n_1^2 \nu_1} \; + \; {s_2^4 \over n_2^2 \nu_2 } \quad }}
+$$</p>
+<p>Here</p>
+<ul>
+<li>$\nu_1 = n_1-1$, the degrees of freedom associated with the first variance estimate.</li>
+<li>$\nu_2 = n_2-1$, the degrees of freedom associated with the 2nd variance estimate.</li>
+</ul>
+<p>With the degrees of freedom and the t-score, we can use a t-table or a t-distribution calculator to determine the p-value. If the p-value is less than the significance level, then we can conclude that our data is statistically significant and the null hypothesis will be rejected.</p>
+<p>Welch's ''t''-test can also be calculated for ranked data and might then be named Welch's ''U''-test.</p>
+<p><a href="https://codingdisciple.com/hypothesis-testing-welch-python.html">https://codingdisciple.com/hypothesis-testing-welch-python.html</a></p>
 
 </div>
 </div>
@@ -12199,26 +12232,150 @@ which follows a t-distribution with $n-1$ degrees of freedom.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Welch's-t-test">The Welch's t-test<a class="anchor-link" href="#The-Welch's-t-test">&#182;</a></h2><p>It is used only when the two unknown population variances $\sigma_1\neq\sigma_2$ are not assumed to be equal.</p>
-<p>Welch's ''t''-test defines the statistic ''t'' by the following formula:</p>
-<p>$$
-t \quad = \quad {\; \overline{X}_1 - \overline{X}_2 \; \over \sqrt{ \; {s_1^2 \over N_1} \; + \; {s_2^2 \over N_2} \quad }}\,
-$$</p>
-<p>where $\overline{X}_1$,$s_1^2$ and $N_1$ are the 1st sample mean, sample variance and sample size, respectively.  Unlike in Student's t test, the denominator is ''not'' based on a pooled variance estimate.</p>
-<p>The degrees of freedom (statistics) $\nu$ associated with this variance estimate is approximated using the Welch–Satterthwaite equation:</p>
-<p>$$
-\nu \quad  \approx \quad
- {{\left( \; {s_1^2 \over N_1} \; + \; {s_2^2 \over N_2} \; \right)^2 } \over
- { \quad {s_1^4 \over N_1^2 \nu_1} \; + \; {s_2^4 \over N_2^2 \nu_2 } \quad }}
-$$</p>
-<p>Here</p>
+<h2 id="Example-1:-Weight-Loss-for-Diet-vs-Exercise">Example 1: Weight Loss for Diet vs Exercise<a class="anchor-link" href="#Example-1:-Weight-Loss-for-Diet-vs-Exercise">&#182;</a></h2><p>from <a href="https://www2.stat.duke.edu/courses/Fall11/sta10/STA10lecture21.pdf">https://www2.stat.duke.edu/courses/Fall11/sta10/STA10lecture21.pdf</a></p>
+<p>Did dieters lose more fat than the exercisers?</p>
 <ul>
-<li>$\nu_1 = N_1-1$, the degrees of freedom associated with the first variance estimate.</li>
-<li>$\nu_2 = N_2-1$, the degrees of freedom associated with the 2nd variance estimate.</li>
+<li><p>Diet Only: sample mean $\bar X_1= 5.9$ kg, sample standard deviation $S_1= 4.1$ kg, sample size $n_1 = 42$, standard error of the mean (SEM1): $S_1/\sqrt{n_1}=4.1/\sqrt{42} = 0.633$</p>
+</li>
+<li><p>Exercise Only: sample mean $\bar X_2=4.1$ kg
+sample standard deviation $S_2=3.7$ kg, sample size $n_2 = 47$, standard error of the mean (SEM2): $S_2/\sqrt{n_2}= 3.7/\sqrt{47} = 0.540$</p>
+</li>
 </ul>
-<p>With the degrees of freedom and the t-score, we can use a t-table or a t-distribution calculator to determine the p-value. If the p-value is less than the significance level, then we can conclude that our data is statistically significant and the null hypothesis will be rejected.</p>
-<p>Welch's ''t''-test can also be calculated for ranked data and might then be named Welch's ''U''-test.</p>
-<p><a href="https://codingdisciple.com/hypothesis-testing-welch-python.html">https://codingdisciple.com/hypothesis-testing-welch-python.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From the problem, we know that there are two types of samples with unknown $\sigma^2_1\neq\sigma^2_2$. 
+We adopt the Welch's $t$-test for the mean difference $\mu_1-\mu_2$.</p>
+<p>$$
+z \quad = \quad {(\overline{X}_1 - \overline{X}_2) - (\mu_1- \mu_2) \; \over \sqrt{ \; {S_1^2 \over n_1} \; + \; {S_2^2 \over n_2} \quad }} \sim t(\nu)
+$$
+where the DOF is  ($\nu_1=n_1-1$, $\nu_2=n_2-1$)
+$$
+\nu  \approx \quad
+ {{\left( \; {S_1^2 \over n_1} \; + \; {S_2^2 \over n_2} \; \right)^2 } \over
+ { \quad {S_1^4 \over n_1^2 \nu_1} \; + \; {S_2^4 \over n_2^2 \nu_2 } \quad }}.
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Step 1. Determine the null and alternative hypotheses</p>
+<ul>
+<li>Null hypothesis: No difference in average fat lost in population for two methods. Population mean difference is zero, $\mu_1-\mu_2=0$.</li>
+<li>Alternative hypothesis: There is a difference in average fat lost in population for two methods. Population mean difference is not zero.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Step 2. Collect and summarize data into a test statistic.</p>
+<p>The mean difference: 
+$$
+\bar X_1 - \bar X_2 = 5.9 - 4.1 = 1.8~ {\text kg}.
+$$
+The standard error of the difference:
+$$
+\sqrt{ \; {S_1^2 \over n_1} \; + \; {S_2^2 \over n_2} \quad }
+=\sqrt{0.633^2 + 0.54^2} = 0.83
+$$
+The <strong>test statistic</strong>: 
+$$
+z \quad = \quad {\; \overline{X}_1 - \overline{X}_2 \; \over \sqrt{ \; {S_1^2 \over n_1} \; + \; {S_2^2 \over n_2} \quad }} =(1.8-0)/0.83=2.17.
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Step 3. Determine the p-value.</p>
+<p>Recall the alternative hypothesis was two-sided.</p>
+<p>$$
+\text{ pvalue}= 2\times \text{[proportion of bell-shaped curve above 2.17]}
+= 2\times 0.015 = 0.03.
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Step 4. Make a decision.</p>
+<p>The p-value of 0.03 is less than or equal to 0.05.</p>
+<ul>
+<li>If really no difference between dieting and exercise as fat loss methods, would see such an extreme result only 3\% of the time, or 3 times out of 100.</li>
+<li>Prefer to believe truth does not lie with null hypothesis. </li>
+</ul>
+<p>We conclude that <strong>The p-value is small enough, we have good reason to reject the null hypothesis!</strong> There is a statistically significant difference between average fat loss for the two methods.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
+
+<span class="n">t_score</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind_from_stats</span><span class="p">(</span><span class="n">mean1</span><span class="o">=</span><span class="mf">5.9</span><span class="p">,</span> <span class="n">std1</span><span class="o">=</span><span class="mf">4.1</span><span class="p">,</span> <span class="n">nobs1</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> \
+                                     <span class="n">mean2</span><span class="o">=</span><span class="mf">4.1</span><span class="p">,</span> <span class="n">std2</span><span class="o">=</span><span class="mf">3.7</span><span class="p">,</span> <span class="n">nobs2</span><span class="o">=</span><span class="mi">47</span><span class="p">,</span> \
+                                     <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">t_score</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Ttest_indResult(statistic=2.164570820365927, pvalue=0.03328801891442254)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Example-2:-AB-testing">Example 2: AB testing<a class="anchor-link" href="#Example-2:-AB-testing">&#182;</a></h2><p>A/B Testing Statistics Made Simple
+<a href="https://www.invespcro.com/blog/ab-testing-statistics-made-simple/">https://www.invespcro.com/blog/ab-testing-statistics-made-simple/</a></p>
+<p>Statistical Significance in A/B Testing – a Complete Guide:
+<a href="http://blog.analytics-toolkit.com/2017/statistical-significance-ab-testing-complete-guide/">http://blog.analytics-toolkit.com/2017/statistical-significance-ab-testing-complete-guide/</a></p>
+<p>The Math Behind A/B Testing with Example Python Code
+<a href="https://towardsdatascience.com/the-math-behind-a-b-testing-with-example-code-part-1-of-2-7be752e1d06f">https://towardsdatascience.com/the-math-behind-a-b-testing-with-example-code-part-1-of-2-7be752e1d06f</a></p>
 
 </div>
 </div>
@@ -12306,15 +12463,6 @@ $$</p>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This function computes the chi-square statistic and p-value for the hypothesis test of independence of the observed frequencies in the contingency table [1] observed. The expected frequencies are computed based on the marginal sums under the assumption of independence</p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
