@@ -11914,9 +11914,7 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Basic-idea">Basic idea<a class="anchor-link" href="#Basic-idea">&#182;</a></h2><ol>
-<li>let $\log\dfrac{p(x)}{1-p(x)}$ be a linear function of $x$:</li>
-</ol>
+<h2 id="Basic-idea">Basic idea<a class="anchor-link" href="#Basic-idea">&#182;</a></h2><p>Let $\log\dfrac{p(x)}{1-p(x)}$ be a linear function of $x$:</p>
 <p>$$
 g(x) = \log\dfrac{p(x)}{1-p(x)} = \beta_0 +\beta_1 x, \quad ~~~~~ x\in[-\infty,\infty]
 $$
@@ -11954,39 +11952,45 @@ rapidly when $||\beta_1||$ is larger.</p>
 $$
 L(\beta_0, \beta_1) = \prod^n_{i=1} p^{y_i}(x_i) (1- p(x_i))^{1-y_i}
 $$</li>
-<li><p>The log likelihood:
-$$
-  \begin{eqnarray}
+<li>The log likelihood:</li>
+</ul>
+<p>$$
+    \begin{eqnarray}
 {\cal L}(\beta_0, \beta_1) =\log L(\beta_0, \beta_1)
 &amp;=&amp; \sum^n_i \left [ y_i \log p(x_i) + (1- y_i) \log (1- p(x_i)\right]\nonumber\\
 &amp;=&amp;\sum^n_i \log (1- p(x_i) +  \sum^n_i y_i \log \dfrac{p(x_i)}{(1- p(x_i)} \nonumber\\
 &amp;=&amp;-\sum^n_i \log (1+e^{(\beta_0 +\beta_1 x_i)}) +  \sum^n_i y_i \left[\beta_1 x_i + \beta_0\right]
 \end{eqnarray}
-$$
-where
+$$</p>
+<p>where
 $$
 1- p(x_i|\beta_0,\beta_1) = \dfrac{1}{1+e^{(\beta_0 +\beta_1 x_i)}}
 $$</p>
-</li>
-<li><p>Maximization of the log likelihood with respect to the paramters:</p>
-</li>
+<ul>
+<li>Maximization of the log likelihood with respect to the paramters:</li>
 </ul>
 <p>$$
+ \begin{eqnarray}
 \dfrac{\partial {\cal L}}{\partial \beta_1}
 =-\sum^n_i \dfrac{1}{(1+e^{(\beta_0 +\beta_1 x_i)})} e^{(\beta_0 +\beta_1 x_i)})x_i</p>
 <ul>
 <li>\sum^n_i y_i  x_i<br>
 =\sum^n_i \left[y_i-p(x_i)\right] x_i,
-$$
-and 
-$$
-\dfrac{\partial {\cal L}}{\partial \beta_0}
-=-\sum^n_i \dfrac{1}{(1+e^{(\beta_0 +\beta_1 x_i)})} e^{(\beta_0 +\beta_1 x_i)}) </li>
-<li>\sum^n_i y_i<br>
-=\sum^n_i \left[y_i-p(x_i|\beta_0,\beta_1)\right].
+\end{eqnarray}
 $$</li>
 </ul>
-<p>It is not be able to set this to zero and solve exactly. (That’s a <strong>transcendental equation</strong>, and there is no closed-form solution.) We can however approximately solve it numerically.</p>
+<p>and</p>
+<p>$$
+ \begin{eqnarray}
+\dfrac{\partial {\cal L}}{\partial \beta_0}
+=-\sum^n_i \dfrac{1}{(1+e^{(\beta_0 +\beta_1 x_i)})} e^{(\beta_0 +\beta_1 x_i)})</p>
+<ul>
+<li>\sum^n_i y_i<br>
+=\sum^n_i \left[y_i-p(x_i|\beta_0,\beta_1)\right].
+\end{eqnarray}
+$$</li>
+</ul>
+<p>It is not able to set this to zero and solve exactly. (That’s a <strong>transcendental equation</strong>, and there is no closed-form solution.) We can however approximately solve it numerically.</p>
 <h2 id="Newton-method">Newton method<a class="anchor-link" href="#Newton-method">&#182;</a></h2><p>Taylor expansion around $\beta^{(0)}$ up to the second derivative term:</p>
 <p>$$
 f(\beta) = f(\beta^{(0)}) + f'(\beta^{(0)}) (\beta-\beta^{(0)})</p>
@@ -12014,7 +12018,7 @@ $$</p>
 
 </div>
 </div>
-</div>
+</div></section></section>
 </div>
 </div>
 
