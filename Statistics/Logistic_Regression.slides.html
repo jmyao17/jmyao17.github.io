@@ -11905,6 +11905,15 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://jmyao17.github.io">[Home]</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h1><p>logistic regression predicts probabilities, rather than just classes.</p>
 
 </div>
@@ -11984,11 +11993,8 @@ $$</p>
 <p>It is not able to set this to zero and solve exactly. (That’s a <strong>transcendental equation</strong>, and there is no closed-form solution.) We can however approximately solve it numerically.</p>
 <h2 id="Newton-method">Newton method<a class="anchor-link" href="#Newton-method">&#182;</a></h2><p>Taylor expansion around $\beta^{(0)}$ up to the second derivative term:</p>
 <p>$$
-f(\beta) = f(\beta^{(0)}) + f'(\beta^{(0)}) (\beta-\beta^{(0)})</p>
-<ul>
-<li>\dfrac{1}{2}f^{''}(\beta^{(0)}) (\beta-\beta^{(0)})^2,
-$$</li>
-</ul>
+f(\beta) = f(\beta^{(0)}) + f'(\beta^{(0)}) (\beta-\beta^{(0)})+ \dfrac{1}{2}f^{''}(\beta^{(0)}) (\beta-\beta^{(0)})^2,
+$$</p>
 <p>Taking derivative w.r.t. $\beta$ on both sides and set the l.h.s. to be zero, one gets</p>
 <p>$$
 0 = f'(\beta^{(0)}) +  f^{''}(\beta^{(0)}) (\beta-\beta^{(0)}),
