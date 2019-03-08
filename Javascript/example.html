@@ -1,0 +1,37 @@
+<HTML>
+ 
+<HEAD>
+    
+<SCRIPT language="JavaScript" type="text/javascript">
+<!-- hide from older browsers
+//
+var PI = 3.14159;
+function CalcCircumference(r) {
+     return 2*PI*r;
+}
+function CalcArea(r) {
+     return PI*r*r
+}
+// end hiding -->
+</SCRIPT>
+</HEAD>
+
+<FORM name="SimpleCalc1">
+   Please Enter Radius:
+  <INPUT type="text" size="10" name="radius"> <br> 
+   Perimeter=
+  <INPUT type="text" size="10" name="circumference"> <br>
+   Area=
+  <INPUT type="text" size="10" name="area"> <br>
+
+  <INPUT type="button" value="Calculate!" onclick= 
+  "document.SimpleCalc1.circumference.value  = 
+  CalcCircumference(document.SimpleCalc1.radius.value); 
+  document.SimpleCalc1.area.value = 
+  CalcArea(document.SimpleCalc1.radius.value)">
+</FORM>
+
+      
+      
+      
+</HTML>
