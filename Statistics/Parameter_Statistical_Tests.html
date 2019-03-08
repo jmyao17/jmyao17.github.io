@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Nonparametric_Statistical_Significance_Tests</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Parameter_Statistical_Tests</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11775,22 +11775,13 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Nonparametric-Statistical-Significance-Tests-in-Python">Nonparametric Statistical Significance Tests in Python<a class="anchor-link" href="#Nonparametric-Statistical-Significance-Tests-in-Python">&#182;</a></h1><p>Nonparametric statistics are those methods that do not assume a specific distribution to the data.</p>
-<p>Often, they refer to statistical methods that do not assume a Gaussian distribution. They were developed for use with ordinal or interval data, but in practice can also be used with a ranking of real-valued observations in a data sample rather than on the observation values themselves.</p>
+<h1 id="Parameter_Statistical_Tests">Parameter_Statistical_Tests<a class="anchor-link" href="#Parameter_Statistical_Tests">&#182;</a></h1><p>A parametric statistical test makes an assumption about the population parameters and the distributions that the data came from.</p>
+<p>These types of test includes</p>
 <ul>
-<li><p>To test whether the two data samples have the same or different distributions.</p>
+<li>Student’s T tests </li>
+<li><p>and ANOVA tests,</p>
+<p>which assume data is from a normal distribution.</p>
 </li>
-<li><p>The null hypothesis of these tests is often the assumption that both samples were drawn from a population with the same distribution, and therefore the same population parameters, such as mean or median.</p>
-</li>
-<li><p>If after calculating the significance test on two or more samples the null hypothesis is rejected, it indicates that there is evidence to suggest that samples were drawn from different populations, and in turn the difference between sample estimates of population parameters, such as means or medians may be significant.</p>
-</li>
-<li><p>Tests also return a $p$-value that can be used to interpret the result of the test. The $p$-value can be thought of as the probability of observing the two data samples given the base assumption (null hypothesis) that the two samples were drawn from a population with the same distribution.</p>
-</li>
-<li><p>The p-value can be interpreted in the context of a chosen significance level called $\alpha$. A common value for alpha is 5% or 0.05. If the p-value is below the significance level, then the test says there is enough evidence to reject the null hypothesis and that the samples were likely drawn from populations with differing distributions.</p>
-</li>
-<li><p>$p &lt;= \alpha$: reject H0, different distribution.</p>
-</li>
-<li>$p &gt; \alpha$: fail to reject H0, same distribution.</li>
 </ul>
 
 </div>
@@ -11798,45 +11789,15 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># generate gaussian data samples</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">seed</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">randn</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">mean</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">std</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="c1"># seed the random number generator</span>
-<span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1"># generate two sets of univariate observations</span>
-<span class="n">data1</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="mi">50</span>
-<span class="n">data2</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="mi">51</span>
-<span class="c1"># summarize</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data1: mean=</span><span class="si">%.3f</span><span class="s1"> stdv=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">data1</span><span class="p">),</span> <span class="n">std</span><span class="p">(</span><span class="n">data1</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data2: mean=</span><span class="si">%.3f</span><span class="s1"> stdv=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">data2</span><span class="p">),</span> <span class="n">std</span><span class="p">(</span><span class="n">data2</span><span class="p">)))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="mi">50</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>data1: mean=50.303 stdv=4.426
-data2: mean=51.764 stdv=4.660
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -11845,14 +11806,19 @@ data2: mean=51.764 stdv=4.660
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Mann-Whitney-U-test--(for-two-independent-samples)">The Mann-Whitney U test  (for two independent samples)<a class="anchor-link" href="#The-Mann-Whitney-U-test--(for-two-independent-samples)">&#182;</a></h2><ul>
-<li>The Mann-Whitney U test is a nonparametric statistical significance test for determining whether two independent samples were drawn from a population with the same distribution.</li>
+<h1 id="The-t-test">The t-test<a class="anchor-link" href="#The-t-test">&#182;</a></h1><p>A t-test is most commonly applied when the test statistic would follow a normal distribution if the value of a scaling term in the test statistic were known. When the scaling term is unknown and is replaced by an estimate based on the data, the test statistics (under certain conditions) follow a Student's t distribution.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="test-mean-for-one-sample">test mean for one sample<a class="anchor-link" href="#test-mean-for-one-sample">&#182;</a></h2><ul>
+<li><strong>one sample</strong> of whether the mean of a population has a value specified in a null hypothesis.</li>
 </ul>
-<p>More specifically, the test determines whether it is equally likely that any randomly selected observation from one sample will be greater or less than a sample in the other distribution. If violated, it suggests differing distributions.</p>
-<ul>
-<li>Fail to Reject H0: Sample distributions are equal.</li>
-<li>Reject H0: Sample distributions are not equal.</li>
-</ul>
+<p>use the method <strong>ttest_1samp()</strong></p>
 
 </div>
 </div>
@@ -11862,193 +11828,78 @@ data2: mean=51.764 stdv=4.660
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">mannwhitneyu</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># scipy.stats.ttest_1samp(a, popmean, axis=0, nan_policy=&#39;propagate&#39;)[source]</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">ttest_1samp</span>
+
+<span class="n">mean</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">stats</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">ttest_1samp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">mean</span><span class="p">)</span>
+
+<span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span>
+
+<span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Same distribution (fail to reject H0)&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Different distribution (reject H0)&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Same distribution (fail to reject H0)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="test-two-independent-samples">test two independent samples<a class="anchor-link" href="#test-two-independent-samples">&#182;</a></h2><p>These tests are often referred to as "unpaired" or "independent samples" ''t''-tests, as they are typically applied when the statistical units underlying the two samples being compared are non-overlapping.</p>
+<ul>
+<li><strong>Student's t-test</strong>: variances of the two populations are assumed to be equal</li>
+<li><strong>Welch's t-test</strong>:  variances of the two populations are NOT assumed to be equal</li>
+</ul>
+<p>Welch’s t-test Assumptions:</p>
+<ul>
+<li>The independent variable (IV) is categorical with at least two levels (groups)</li>
+<li>The dependent variable (DV) is continuous which is measured on an interval or ratio scale</li>
+<li>The distribution of the two groups should follow the normal distribution</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To conduct a Welch’s t-test, one needs to use the <strong>stats.ttest_ind()</strong> method while passing <strong>equal_var=False</strong> in the argument.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># compare samples</span>
-<span class="n">stat</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Statistics=</span><span class="si">%.3f</span><span class="s1">, p=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
-<span class="c1"># interpret</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Same distribution (fail to reject H0)&#39;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Different distribution (reject H0)&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Statistics=4025.000, p=0.009
-Different distribution (reject H0)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Wilcoxon-Signed-Rank-Test-(for-two-paired-samples/-one-sample)">Wilcoxon Signed-Rank Test (for two paired samples/ one sample)<a class="anchor-link" href="#Wilcoxon-Signed-Rank-Test-(for-two-paired-samples/-one-sample)">&#182;</a></h2><p>The samples are related or matched in some way or represent two measurements of the same technique. More specifically, each sample is independent, but comes from the same population.</p>
-<ul>
-<li>The Wilcoxon signed ranks test is a nonparametric statistical procedure for comparing two samples that are paired, or related. </li>
-<li>The parametric equivalent to the Wilcoxon signed ranks test goes by names such as the Student’s t-test, t-test for matched pairs, t-test for paired samples, or t-test for dependent samples.</li>
-</ul>
-<p>The default assumption for the test, the null hypothesis, is that the two samples have the same distribution.</p>
-<ul>
-<li>Fail to Reject H0: Sample distributions are equal.</li>
-<li>Reject H0: Sample distributions are not equal.</li>
-</ul>
-<p>For the test to be effective, it requires at least 20 observations in each data sample.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="two-paired-samples-(e.g.-before-and-after-treatments)">two paired samples (e.g. before and after treatments)<a class="anchor-link" href="#two-paired-samples-(e.g.-before-and-after-treatments)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">wilcoxon</span>
-<span class="c1"># compare samples</span>
-<span class="n">stat</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">wilcoxon</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Statistics=</span><span class="si">%.3f</span><span class="s1">, p=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
-<span class="c1"># interpret</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Same distribution (fail to reject H0)&#39;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Different distribution (reject H0)&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Statistics=1886.000, p=0.028
-Different distribution (reject H0)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="one-sample:-testing--the-difference-between-the-two-samples">one sample: testing  the difference between the two samples<a class="anchor-link" href="#one-sample:-testing--the-difference-between-the-two-samples">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stat</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">wilcoxon</span><span class="p">(</span><span class="n">data1</span><span class="o">-</span><span class="n">data2</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Statistics=</span><span class="si">%.3f</span><span class="s1">, p=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
-<span class="c1"># interpret</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Same distribution (fail to reject H0)&#39;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Different distribution (reject H0)&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Statistics=1886.000, p=0.028
-Different distribution (reject H0)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kruskal-Wallis-H-Test-(ANOVA:--for-more-than-two-independent-samples)">Kruskal-Wallis H Test (ANOVA:  for more than two independent samples)<a class="anchor-link" href="#Kruskal-Wallis-H-Test-(ANOVA:--for-more-than-two-independent-samples)">&#182;</a></h2><p>The Kruskal-Wallis test is a nonparametric version of the one-way analysis of variance test or ANOVA for short. It is named for the developers of the method, William Kruskal and Wilson Wallis. This test can be used to determine whether more than two independent samples have a different distribution. It can be thought of as the generalization of the Mann-Whitney U test.</p>
-<p>When the Kruskal-Wallis H-test leads to significant results, then at least one of the samples is different from the other samples. However, the test does not identify where the difference(s) occur. Moreover, it does not identify how many differences occur. To identify the particular differences between sample pairs, a researcher might use sample contrasts, or post hoc tests, to analyze the specific sample pairs for significant difference(s). The Mann-Whitney U-test is a useful method for performing sample contrasts between individual sample sets.</p>
-<ul>
-<li>Fail to Reject H0: All sample distributions are equal.</li>
-<li>Reject H0: One or more sample distributions are not equal.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">data1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">50</span>
-<span class="n">data2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">50</span>
-<span class="n">data3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">52</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data1</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="mi">50</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="mi">52</span>
 </pre></div>
 
 </div>
@@ -12058,17 +11909,21 @@ Different distribution (reject H0)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">kruskal</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># scipy.stats.ttest_ind (a, b, axis=0, equal_var=True, nan_policy=&#39;propagate&#39;)</span>
 
-<span class="n">stats</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="n">kruskal</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span><span class="n">data2</span><span class="p">,</span><span class="n">data3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Statistics=</span><span class="si">%.3f</span><span class="s1">, p=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">ttest_ind</span>
+
+<span class="n">stats</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span><span class="n">data2</span><span class="p">,</span><span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span>
 
-<span class="k">if</span> <span class="n">p</span><span class="o">&gt;</span><span class="n">alpha</span><span class="p">:</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Welch&#39;s t-test=</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Welch&#39;s p-value=</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Same distribution (fail to reject H0)&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Different distribution (reject H0)&#39;</span><span class="p">)</span>
@@ -12088,8 +11943,11 @@ Different distribution (reject H0)
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Statistics=1886.000, p=0.001
-Different distribution (reject H0)
+<pre>Welch&#39;s t-test=-1.0405845313457198
+
+Welch&#39;s p-value=0.2993705884017579
+
+Same distribution (fail to reject H0)
 </pre>
 </div>
 </div>
@@ -12098,43 +11956,24 @@ Different distribution (reject H0)
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Friedman-Test-(repeated-measures-ANOVA:-for-more-than-two-paired-samples)">Friedman Test (repeated measures ANOVA: for more than two paired samples)<a class="anchor-link" href="#Friedman-Test-(repeated-measures-ANOVA:-for-more-than-two-paired-samples)">&#182;</a></h2><p>The test assumes two or more paired data samples with 10 or more samples per group.</p>
-<p>The Friedman test is a nonparametric statistical procedure for comparing more than two samples that are related. The parametric equivalent to this test is the repeated measures analysis of variance (ANOVA). When the Friedman test leads to significant results, at least one of the samples is different from the other samples.</p>
-<p>The default assumption, or null hypothesis, is that the multiple paired samples have the same distribution. A rejection of the null hypothesis indicates that one or more of the paired samples has a different distribution.</p>
-<ul>
-<li>Fail to Reject H0: Paired sample distributions are equal.</li>
-<li>Reject H0: Paired sample distributions are not equal.</li>
-</ul>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">friedmanchisquare</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">welch_ttest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> 
+    
+    <span class="c1">## Welch-Satterthwaite Degrees of Freedom ##</span>
+    <span class="n">dof</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">/</span><span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+   
+    <span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">equal_var</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+          <span class="n">f</span><span class="s2">&quot;Welch&#39;s t-test= </span><span class="si">{t:.4f}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+          <span class="n">f</span><span class="s2">&quot;p-value = </span><span class="si">{p:.4f}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+          <span class="n">f</span><span class="s2">&quot;Welch-Satterthwaite Degrees of Freedom= </span><span class="si">{dof:.4f}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># seed the random number generator</span>
-<span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1"># generate three independent samples</span>
-<span class="n">data1</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="mi">50</span>
-<span class="n">data2</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="mi">50</span>
-<span class="n">data3</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="mi">52</span>
-<span class="c1"># compare samples</span>
-<span class="n">stat</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">friedmanchisquare</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">data3</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Statistics=</span><span class="si">%.3f</span><span class="s1">, p=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
-<span class="c1"># interpret</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>
-<span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Same distributions (fail to reject H0)&#39;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Different distributions (reject H0)&#39;</span><span class="p">)</span>
+<span class="n">welch_ttest</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12151,8 +11990,10 @@ Different distribution (reject H0)
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Statistics=9.360, p=0.009
-Different distributions (reject H0)
+<pre>
+ Welch&#39;s t-test= -1.1545 
+ p-value = 0.2497 
+ Welch-Satterthwaite Degrees of Freedom= 188.8195
 </pre>
 </div>
 </div>
@@ -12160,6 +12001,15 @@ Different distributions (reject H0)
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://pythonfordatascience.org/welch-t-test-python-pandas/">https://pythonfordatascience.org/welch-t-test-python-pandas/</a></p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
