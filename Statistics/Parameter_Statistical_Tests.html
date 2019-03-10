@@ -11775,12 +11775,17 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Parameter_Statistical_Tests">Parameter_Statistical_Tests<a class="anchor-link" href="#Parameter_Statistical_Tests">&#182;</a></h1><p>A parametric statistical test makes an assumption about the population parameters and the distributions that the data came from.</p>
+<h1 id="Parameter_Statistical_Tests">Parameter_Statistical_Tests<a class="anchor-link" href="#Parameter_Statistical_Tests">&#182;</a></h1><ul>
+<li>Statistical significance measures how likely it would be to observe what we observed, assuming the null hypothesis is true.</li>
+</ul>
+<ul>
+<li><p>A parametric statistical test makes an assumption about the population parameters and the distributions that the data came from.</p>
 <p>These types of test includes</p>
 <ul>
+<li>z tests</li>
 <li>Student’s T tests </li>
-<li><p>and ANOVA tests,</p>
-<p>which assume data is from a normal distribution.</p>
+<li>and ANOVA tests </li>
+</ul>
 </li>
 </ul>
 
@@ -11793,6 +11798,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">+</span><span class="mi">50</span>
 </pre></div>
@@ -11806,7 +11812,600 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-t-test">The t-test<a class="anchor-link" href="#The-t-test">&#182;</a></h1><p>A t-test is most commonly applied when the test statistic would follow a normal distribution if the value of a scaling term in the test statistic were known. When the scaling term is unknown and is replaced by an estimate based on the data, the test statistics (under certain conditions) follow a Student's t distribution.</p>
+<h1 id="The-Z-test-($\sigma^2$-is-known)">The Z-test ($\sigma^2$ is known)<a class="anchor-link" href="#The-Z-test-($\sigma^2$-is-known)">&#182;</a></h1><ul>
+<li><p>It is any statistical test for which <strong>the distribution of the test statistic under the null hypothesis can be approximated by a normal distribution</strong>.</p>
+</li>
+<li><p>Because of the <strong>central limit theorem, many test statistics are approximately normally distributed for large samples</strong>.</p>
+</li>
+<li><p>Proportion test belongs to z-tests because the parameters (mean $\mu$, variance $\sigma$) for the distributions
+are known and given by 
+$$
+\mu = p, \quad \sigma^2 = p (1-p).
+$$</p>
+</li>
+<li><p>One can use the proportional z-test to carry out AB test.</p>
+</li>
+<li><p>The test statistic is a z-score (z):
+$$
+z = \dfrac{\widehat \mu - \mu}{\sigma/\sqrt{n}}
+$$</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="One-sample-case-(testing-a-mean-when-$\sigma$-is-known)">One sample case (testing a mean when $\sigma$ is known)<a class="anchor-link" href="#One-sample-case-(testing-a-mean-when-$\sigma$-is-known)">&#182;</a></h2><p><strong><em>Question:</em></strong> Consider a population that is normally distributed with $\sigma^2=100$. We claim the population mean is $\mu=100$. Use a sample of size $25$ and mean $\mu=105$ to test the claim.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span><span class="o">+</span><span class="mi">100</span> <span class="c1"># mu=100, sigma=10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The sample mean=</span><span class="si">{}</span><span class="s2"> and sample variance=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="n">data</span><span class="o">.</span><span class="n">var</span><span class="p">()))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The sample mean=98.80721420050278 and sample variance=94.94947717236663
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAW4AAAD8CAYAAABXe05zAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMi4yLCBodHRwOi8vbWF0cGxvdGxpYi5vcmcvhp/UCwAADjVJREFUeJzt3XuMrHV9x/H3p+cgAmIosFgqrAuNpVITgWwJlpRYsMrFQmlpgqkttiabNKGBXtIeYtLoH02w90uM5FQRqgi1VFrCTaiK1qRgOdw8cCAiUOVSLhpFSgOC3/4xz2m2h5md55yzc/nR9yvZ7O7Mb2c++9udzz7Pb55nNlWFJKkdPzTrAJKknWNxS1JjLG5JaozFLUmNsbglqTEWtyQ1xuKWpMZY3JLUGItbkhqzcRI3euCBB9bS0tIkblqSXpG2bNnydFUt9Bk7keJeWlritttum8RNS9IrUpL/6DvWpRJJaozFLUmNsbglqTEWtyQ1xuKWpMaMLe4kRyS5c9XbM0nOn0Y4SdLLjT0csKruB44CSLIBeBS4asK5JEkj7OxSyUnA16uq9/GGkqT1tbPFfTZw+SSCSJL66X3mZJJXAacDF4y4fgVYAVhcXFyXcHrlWtp07Uzu9+ELT5vJ/UrraWe2uE8Bbq+qJ4ZdWVWbq2q5qpYXFnqdbi9J2gU7U9zvxmUSSZq5XsWdZG/g54DPTDaOJGmcXmvcVfUccMCEs0iSevDMSUlqjMUtSY2xuCWpMRa3JDXG4pakxljcktQYi1uSGmNxS1JjLG5JaozFLUmNsbglqTEWtyQ1xuKWpMZY3JLUGItbkhpjcUtSYyxuSWqMxS1JjbG4JakxFrckNcbilqTG9CruJPsluTLJfUm2JXnrpINJkobb2HPcXwE3VNVZSV4F7D3BTJKkNYwt7iSvBU4A3gtQVS8AL0w2liRplD5LJYcDTwEfT3JHko8m2WfHQUlWktyW5Lannnpq3YNKkgb6FPdG4BjgI1V1NPBfwKYdB1XV5qparqrlhYWFdY4pSdquT3E/AjxSVbd2n1/JoMglSTMwtrir6j+BbyY5orvoJODeiaaSJI3U96iS3wIu644oeRD49clFkiStpVdxV9WdwPKEs0iSevDMSUlqjMUtSY2xuCWpMRa3JDXG4pakxljcktQYi1uSGmNxS1JjLG5JaozFLUmNsbglqTEWtyQ1xuKWpMZY3JLUGItbkhpjcUtSYyxuSWqMxS1JjbG4JakxFrckNabXPwtO8jDwPeAl4MWq8h8HS9KM9Cruzs9W1dMTSyJJ6sWlEklqTN/iLuDGJFuSrEwykCRpbX2XSo6vqseSHATclOS+qvrS6gFdoa8ALC4urnNMSdJ2vba4q+qx7v2TwFXAsUPGbK6q5apaXlhYWN+UkqT/Nba4k+yTZN/tHwPvALZOOpgkabg+SyWvA65Ksn38p6rqhommkiSNNLa4q+pB4C1TyCJJ6sHDASWpMRa3JDXG4pakxljcktQYi1uSGmNxS1JjLG5JaozFLUmNsbglqTEWtyQ1xuKWpMZY3JLUGItbkhpjcUtSYyxuSWqMxS1JjbG4JakxFrckNcbilqTGWNyS1BiLW5Ia07u4k2xIckeSayYZSJK0tp3Z4j4P2DapIJKkfnoVd5JDgNOAj042jiRpnI09x/0l8PvAvqMGJFkBVgAWFxd3P5kmbmnTtbOOIGkXjN3iTvIu4Mmq2rLWuKraXFXLVbW8sLCwbgElSf9Xn6WS44HTkzwMXAGcmOSTE00lSRppbHFX1QVVdUhVLQFnA5+vqvdMPJkkaSiP45akxvR9chKAqroZuHkiSSRJvbjFLUmNsbglqTEWtyQ1xuKWpMZY3JLUGItbkhpjcUtSYyxuSWqMxS1JjbG4JakxFrckNcbilqTGWNyS1BiLW5IaY3FLUmMsbklqjMUtSY2xuCWpMRa3JDXG4pakxowt7iSvTvKVJHcluSfJB6cRTJI0XJ//8v48cGJVPZtkD+DLSa6vqlsmnE2SNMTY4q6qAp7tPt2je6tJhpIkjdZrjTvJhiR3Ak8CN1XVrZONJUkapc9SCVX1EnBUkv2Aq5K8uaq2rh6TZAVYAVhcXFz3oJLU19Kma2dyvw9feNpU7menjiqpqu8ANwMnD7luc1UtV9XywsLCOsWTJO2oz1ElC92WNkn2At4O3DfpYJKk4foslRwMXJpkA4Oi/3RVXTPZWJKkUfocVXI3cPQUskiSevDMSUlqjMUtSY2xuCWpMRa3JDXG4pakxljcktQYi1uSGmNxS1JjLG5JaozFLUmNsbglqTEWtyQ1xuKWpMZY3JLUGItbkhpjcUtSYyxuSWqMxS1JjbG4JakxFrckNcbilqTGjC3uJIcm+UKSbUnuSXLeNIJJkobb2GPMi8DvVtXtSfYFtiS5qarunXA2SdIQY7e4q+rxqrq9+/h7wDbg9ZMOJkkabqfWuJMsAUcDt04ijCRpvD5LJQAkeQ3wj8D5VfXMkOtXgBWAxcXFXQ60tOnaXf7a3fHwhafN5H5hdt/z/0fO9fTM8jH1StdrizvJHgxK+7Kq+sywMVW1uaqWq2p5YWFhPTNKklbpc1RJgI8B26rqzycfSZK0lj5b3McDvwqcmOTO7u3UCeeSJI0wdo27qr4MZApZJEk9eOakJDXG4pakxljcktQYi1uSGmNxS1JjLG5JaozFLUmNsbglqTEWtyQ1xuKWpMZY3JLUGItbkhpjcUtSYyxuSWqMxS1JjbG4JakxFrckNcbilqTGWNyS1BiLW5IaY3FLUmPGFneSi5M8mWTrNAJJktbWZ4v7EuDkCeeQJPU0trir6kvAt6eQRZLUw8b1uqEkK8AKwOLi4nrd7NQsbbp21hEkqZd1e3KyqjZX1XJVLS8sLKzXzUqSduBRJZLUGItbkhrT53DAy4F/A45I8kiS900+liRplLFPTlbVu6cRRJLUj0slktQYi1uSGmNxS1JjLG5JaozFLUmNsbglqTEWtyQ1xuKWpMZY3JLUGItbkhpjcUtSYyxuSWqMxS1JjbG4JakxFrckNcbilqTGWNyS1BiLW5IaY3FLUmMsbklqTK/iTnJykvuTPJBk06RDSZJGG1vcSTYAHwZOAY4E3p3kyEkHkyQN12eL+1jggap6sKpeAK4AzphsLEnSKH2K+/XAN1d9/kh3mSRpBjb2GJMhl9XLBiUrwEr36bNJ7u+Z4UDg6Z5jZ2Ge881zNjDf7pjnbNAjXz40pSQvN7O56/k9j8r3hr7306e4HwEOXfX5IcBjOw6qqs3A5r53vF2S26pqeWe/blrmOd88ZwPz7Y55zgbznW+es8H65OuzVPLvwBuTHJbkVcDZwNW7c6eSpF03dou7ql5Mci7wWWADcHFV3TPxZJKkofoslVBV1wHXTSjDTi+vTNk855vnbGC+3THP2WC+881zNliHfKl62fOMkqQ55invktSYqRd3kt9Ock+SrUkuT/Lq7onPW5N8Lcnfd0+CTt2IbJckeSjJnd3bUbPI1uU7r8t2T5Lzu8v2T3JTN3c3JfnhOcr2gSSPrpq7U6eY5+IkTybZuuqyoXOVgb/uXtLh7iTHzFm+tyX57qp5/MMZ5fvl7uf7gyTLO4y/oJu/+5O8c16yJVlK8t+r5u6iSWZbI9+fJLmv+/26Ksl+q67b+bmrqqm9MThx5yFgr+7zTwPv7d6f3V12EfCb08w1JtslwFnTzjMk35uBrcDeDJ6b+BfgjcAfA5u6MZuAD81Rtg8Avzej+ToBOAbYuuqyoXMFnApcz+CcheOAW+cs39uAa+Zg/t4EHAHcDCyvuvxI4C5gT+Aw4OvAhjnJtrR63Azn7h3Axu7jD6362e7S3M1iqWQjsFeSjQwe6I8DJwJXdtdfCvzCDHINy/ay49Vn6E3ALVX1XFW9CHwROJPByw9c2o2Z1dyNyjYzVfUl4Ns7XDxqrs4A/q4GbgH2S3LwHOWbumH5qmpbVQ07se4M4Iqqer6qHgIeYPBSGfOQbepG5Luxe2wA3MLgfBjYxbmbanFX1aPAnwLfYFDY3wW2AN9Z9U3N5JT6Ydmq6sbu6j/qdnH+Isme087W2QqckOSAJHsz2Eo8FHhdVT0O0L0/aI6yAZzbzd3Fs1rGWWXUXM3Lyzqs9bN8a5K7klyf5CdnkG0t8zJ/oxyW5I4kX0zyM7MOA/wGgz082MW5m2pxdw/cMxjsEvwosA+DVx3c0dQPdRmWLcl7gAuAnwB+Ctgf+INpZ4PBFgWDXaybgBsY7F69uOYXTcka2T4C/BhwFIM/hn82q4xj9HpZhxm6HXhDVb0F+Bvgn2acZ0fzPH+PA4tVdTTwO8Cnkrx2VmGSvJ/BY+Oy7RcNGTZ27qa9VPJ24KGqeqqqvg98BvhpBrum248pH3pK/ayyVdXj3S7088DHmeAu4DhV9bGqOqaqTmCwK/Y14Intu/Xd+yfnJVtVPVFVL1XVD4C/ZYZz1xk1V71e1mEKhuarqmeq6tnu4+uAPZIcOIN8o8zL/L1MtwTxre7jLQzWkH98FlmSnAO8C/iV6ha42cW5m3ZxfwM4LsneSQKcBNwLfAE4qxtzDvDPU841Ktu2VQ+kMFhz3LrGbUxUkoO694vALwKXM3j5gXO6IbOau6HZdlgnPpMZzl1n1FxdDfxad3TJcQyWyR6fl3xJfqT7/SPJsQwet9+aQb5RrgbOTrJnksMYPDH9lRlnAiDJQgb/U4AkhzPI9uAMcpzMYG/99Kp6btVVuzZ303y2tfsj80HgPgYP4k8weDb18C7sA8A/AHtOO9ca2T4PfLW77JPAa2aRrcv3rwz+0N0FnNRddgDwOQZb358D9p+jbJ/o5u7u7hf04CnmuZzBbvL3GWzVvG/UXDHYXf0wg62xr7LqqIQ5yXcucE83t7cw2BOcRb4zu4+fB54APrtq/Pu7+bsfOGVesgG/tGrubgd+fkZz9wCDtew7u7eLdmfuPHNSkhrjmZOS1BiLW5IaY3FLUmMsbklqjMUtSY2xuCWpMRa3JDXG4pakxvwPTyQYonlMqXgAAAAASUVORK5CYII=
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">norm</span>
+
+<span class="k">def</span> <span class="nf">ztest4mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">mu_0</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">sides</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    data -- an array of the sample data</span>
+<span class="sd">    mu_0 -- the null hypothesis value for the mean </span>
+<span class="sd">    alpha -- confidence level</span>
+<span class="sd">    sides -- 1 for one-tail; 2 for two-tail test</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="o">/</span><span class="n">size</span><span class="p">)</span> <span class="c1"># s = sigma/sqrt(n) </span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">1.e-20</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error in the data&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mean</span><span class="o">-</span><span class="n">mu_0</span><span class="p">)</span><span class="o">/</span><span class="n">s2</span>  <span class="c1"># also called z-score</span>
+        
+    <span class="n">p_value</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">stats</span><span class="p">))</span><span class="o">*</span><span class="n">sides</span> <span class="c1"># sf(x, loc=0, scale=1) returns the p value </span>
+    
+    
+    <span class="k">if</span> <span class="n">p_value</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fail to reject H0&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reject H0&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">stats</span><span class="p">,</span><span class="n">p_value</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stats</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">ztest4mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">105</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stats=</span><span class="si">{}</span><span class="s2">, p value=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Reject H0
+stats=3.177677171992112, p value=0.0014845995294089363
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stats</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">ztest4mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">101</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stats=</span><span class="si">{}</span><span class="s2">, p value=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fail to reject H0
+stats=1.1251746150652417, p value=0.26051504783260127
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="One-Proportion-Z-Test-example">One Proportion Z-Test example<a class="anchor-link" href="#One-Proportion-Z-Test-example">&#182;</a></h2><p>The XSORT method of gender selection is believed to increases the likelihood of birthing a girl.<br>
+14 couples used the XSORT method and resulted in the birth of 13 girls and 1 boy.<br>
+Using a 0.05 significance level, test the claim that the XSORT method increases the birth rate of girls.<br>
+(Assume the normal birthrate of girls is 0.5)</p>
+<ul>
+<li>sample size $n=14$</li>
+<li>girl rate: $p^G = 13/14$, body rate: $P^B=1-P^G$.</li>
+<li>Null hypothesis test: $H_0: p^G_0=0.5$</li>
+<li>Alternative: $H_1: p^G_0&gt;0.5$</li>
+<li>Significance level $\alpha=0.05$</li>
+</ul>
+<p>Analysis: the test statistic 
+$$
+z = \dfrac{(p^G  - p^G_0)}{\sigma/\sqrt{n}}  
+$$
+follows the normal distribution $N(0,1)$, where $\sigma^2=p^G_0 (1-p^G_0)=0.25$ due to the binomial distribution with $n=1$ (or called Bernoulli distribution).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ztest4Proportion</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="n">prob_s</span><span class="p">,</span><span class="n">prob_0</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">sides</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    prob_s -- sample proportion</span>
+<span class="sd">    prob_0 -- the null hypothesis value for the proportion </span>
+<span class="sd">    alpha -- confidence level</span>
+<span class="sd">    sides -- 1 for one-tail; 2 for two-tail test</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">prob_0</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">prob_0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">prob_s</span><span class="o">-</span><span class="n">prob_0</span><span class="p">)</span><span class="o">/</span><span class="n">sigma</span>  <span class="c1"># also called z-score</span>
+        
+    <span class="n">p_value</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">stats</span><span class="p">))</span><span class="o">*</span><span class="n">sides</span> <span class="c1"># sf(x, loc=0, scale=1) returns the p value </span>
+    
+    
+
+    <span class="k">if</span> <span class="n">p_value</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fail to reject H0&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reject H0&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">stats</span><span class="p">,</span><span class="n">p_value</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ztest4Proportion</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">13</span><span class="o">/</span><span class="mi">14</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stats=</span><span class="si">{}</span><span class="s2">, p value=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Reject H0
+stats=-0.002888022355468176, p value=0.9976956947545617
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Using-the-z-test-for-AB-test">Using the z-test for AB test<a class="anchor-link" href="#Using-the-z-test-for-AB-test">&#182;</a></h2><p>Outline for A/B Tests</p>
+<ul>
+<li>Set up the experiment.</li>
+<li>Run the test and record the success rate for each group.</li>
+<li>Plot the distribution of the difference between the two samples.</li>
+<li>Calculate the statistical power.</li>
+<li>Evaluate how sample size affects A/B tests.</li>
+</ul>
+<p>Control Group (A) and Test Group (B):</p>
+<ul>
+<li>Typically, the total number of users participating in the A/B test make up a small percentage of the total amount of users. </li>
+<li>Users are <strong>randomly selected and assigned</strong> to either a control group or a test group. </li>
+<li>The sample size that you decide on will determine how long you might have to wait until you have collected enough.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[23]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([-2.60220010e+00, -1.55638812e+00, -3.95896865e-01, -6.56256325e-01,
+       -5.47320199e-01, -1.35623815e-01, -1.16663592e-01,  2.05323834e+00,
+       -9.67968074e-04, -7.50433391e-01])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">generate_data4ABtest</span><span class="p">(</span><span class="n">n_A</span><span class="p">,</span> <span class="n">n_B</span><span class="p">):</span>
+    
+    <span class="k">assert</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_A</span><span class="p">,</span> <span class="n">n_B</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">40</span>
+        
+    
+    <span class="n">rand1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_A</span><span class="p">)</span> 
+    <span class="n">data1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rand1</span><span class="o">&gt;</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    
+    
+    <span class="n">rand2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_B</span><span class="p">)</span> 
+    <span class="n">data2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rand2</span><span class="o">&gt;</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">data1</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="n">data2</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n_A</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_B</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">data1</span><span class="p">,</span><span class="n">data2</span><span class="o">=</span><span class="n">generate_data4ABtest</span><span class="p">(</span><span class="n">n_A</span><span class="p">,</span> <span class="n">n_B</span><span class="p">)</span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A_conv_rate</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
+<span class="n">B_conv_rate</span> <span class="o">=</span> <span class="n">data2</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span>
+<span class="n">A_conv_rate</span><span class="p">,</span><span class="n">B_conv_rate</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[55]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0.27, 0.28)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>According to the properties of the Bernoulli distribution for $X$, the mean and variance are as follows:
+$$
+E(X) = p, ~~ var(X)=p(1-p).
+$$</p>
+<p>According to the <strong>central limit theorem</strong>, by calculating many sample means we can approximate the true mean of the population, $\mu$, from which the data for the control group was taken. The distribution of the sample means, $p$, will be normally distributed around the true mean $\mu$ with a standard deviation equal to the standard error of the mean.</p>
+<p>$$
+\widehat p \sim N(\mu=p, \sigma^2=\dfrac{p(1-p)}{n}).
+$$</p>
+<p><strong>Attention:</strong> All Bernoulli distributions are binomial distributions, but most binomial distributions are not Bernoulli distributions.</p>
+<p>If</p>
+<p>$$
+𝑋=\begin{cases}
+1, &amp; {\rm with ~~ probability} ~~ p,\\
+0, &amp; {\rm with ~~ probability}  ~~1−p,
+\end{cases}
+$$</p>
+<p>then the probability distribution of the random variable $𝑋$ is a Bernoulli distribution.</p>
+<p>If $𝑋=𝑋_1+ \cdots +𝑋_𝑛$ and each of $𝑋_1,\cdots, 𝑋_𝑛$ has a Bernoulli distribution with the same value of $𝑝$
+ and they are independent, then $𝑋$   has a binomial distribution, and the possible values of $𝑋$ are $\{0,1,2,3,\cdots,𝑛\}$.</p>
+<p>If $𝑛=1$, then that binomial distribution is a Bernoulli distribution.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For two sample cases in the AB test, the null hypothesis $H_0$</p>
+<ul>
+<li>$H_0$: $p_A-p_B=0$</li>
+<li>$H_1$: $p_A \neq p_B$</li>
+</ul>
+<p>The standard deviation
+$$
+\sigma^2 = var(A) + var(B) = \dfrac{p_A(1-p_A)}{n_A} + \dfrac{p_B(1-p_B)}{n_B}
+$$
+or alternatively
+$$
+\sigma^2 = \widehat p(1-\widehat p) (\dfrac{1}{n_A}+\dfrac{1}{n_B}),~~
+\widehat p = \dfrac{p_An_A + p_Bn_B}{n_A+n_B}.
+$$</p>
+<p>Therefore the test statistic is 
+$$
+z = \dfrac{p_A-p_B}{\sigma}
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ztest4ABtest</span><span class="p">(</span><span class="n">p_A</span><span class="p">,</span> <span class="n">p_B</span><span class="p">,</span> <span class="n">n_A</span><span class="p">,</span> <span class="n">n_B</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">sides</span><span class="p">):</span>
+    
+    <span class="n">prob</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_A</span><span class="o">*</span><span class="n">n_A</span><span class="o">+</span><span class="n">p_B</span><span class="o">*</span><span class="n">n_B</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n_A</span><span class="o">+</span><span class="n">n_B</span><span class="p">)</span> <span class="c1">#  or mean = B_conv_rate</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">prob</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">prob</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">n_A</span> <span class="o">+</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">n_B</span><span class="p">))</span>
+    
+    <span class="n">stats</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_A</span><span class="o">-</span><span class="n">p_B</span><span class="p">)</span><span class="o">/</span><span class="n">sigma</span>
+    
+    <span class="n">p_value</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">stats</span><span class="p">))</span><span class="o">*</span><span class="n">sides</span> <span class="c1"># sf(x, loc=0, scale=1) returns the p value </span>
+    
+    <span class="k">if</span> <span class="n">p_value</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fail to reject H0&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reject H0&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">stats</span><span class="p">,</span><span class="n">p_value</span> 
+    
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stats</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">ztest4ABtest</span><span class="p">(</span><span class="n">A_conv_rate</span><span class="p">,</span><span class="n">B_conv_rate</span><span class="p">,</span><span class="n">n_A</span><span class="p">,</span><span class="n">n_B</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stats=</span><span class="si">{}</span><span class="s2">, p value=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fail to reject H0
+stats=-0.002888022355468176, p value=0.9976956947545617
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The AB test can also be performed using the chi-square test</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">chi2_contingency</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">data1</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">data1</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> 
+                 <span class="p">[</span><span class="n">data2</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">data2</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">)]])</span>
+
+<span class="n">chi</span><span class="p">,</span><span class="n">p_value</span><span class="o">=</span><span class="n">chi2_contingency</span><span class="p">(</span><span class="n">data</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span>
+<span class="k">if</span> <span class="n">p_value</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fail to reject H0&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reject H0&#39;</span><span class="p">)</span>
+     
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stats=</span><span class="si">{}</span><span class="s2">, p value=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fail to reject H0
+stats=-0.002888022355468176, p value=0.9976956947545617
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong> It is shown above that the z-test for the difference in the conversion rate and the chi2-test for the count numbers give the same results.</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="The-t-test--($\sigma^2$-is-unknown)">The t-test  ($\sigma^2$ is unknown)<a class="anchor-link" href="#The-t-test--($\sigma^2$-is-unknown)">&#182;</a></h1><p>A t-test is most commonly applied when the test statistic would follow a normal distribution if the value of a scaling term in the test statistic were known. When the scaling term is unknown and is replaced by an estimate based on the data, the test statistics (under certain conditions) follow a Student's t distribution.</p>
 
 </div>
 </div>
