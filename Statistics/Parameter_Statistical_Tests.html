@@ -12019,6 +12019,18 @@ $$
 z = \dfrac{(p^G  - p^G_0)}{\sigma/\sqrt{n}}  
 $$
 follows the normal distribution $N(0,1)$, where $\sigma^2=p^G_0 (1-p^G_0)=0.25$ due to the binomial distribution with $n=1$ (or called Bernoulli distribution).</p>
+<p><strong>Attention:</strong> All Bernoulli distributions are binomial distributions, but most binomial distributions are not Bernoulli distributions.</p>
+<p>If</p>
+<p>$$
+𝑋=\begin{cases}
+1, &amp; {\rm with ~~ probability} ~~ p,\\
+0, &amp; {\rm with ~~ probability}  ~~1−p,
+\end{cases}
+$$</p>
+<p>then the probability distribution of the random variable $𝑋$ is a Bernoulli distribution.</p>
+<p>If $𝑋=𝑋_1+ \cdots +𝑋_𝑛$ and each of $𝑋_1,\cdots, 𝑋_𝑛$ has a Bernoulli distribution with the same value of $𝑝$
+ and they are independent, then $𝑋$   has a binomial distribution, and the possible values of $𝑋$ are $\{0,1,2,3,\cdots,𝑛\}$.</p>
+<p>If $𝑛=1$, then that binomial distribution is a Bernoulli distribution.</p>
 
 </div>
 </div>
@@ -12234,18 +12246,6 @@ $$</p>
 <p>$$
 \widehat p \sim N(\mu=p, \sigma^2=\dfrac{p(1-p)}{n}).
 $$</p>
-<p><strong>Attention:</strong> All Bernoulli distributions are binomial distributions, but most binomial distributions are not Bernoulli distributions.</p>
-<p>If</p>
-<p>$$
-𝑋=\begin{cases}
-1, &amp; {\rm with ~~ probability} ~~ p,\\
-0, &amp; {\rm with ~~ probability}  ~~1−p,
-\end{cases}
-$$</p>
-<p>then the probability distribution of the random variable $𝑋$ is a Bernoulli distribution.</p>
-<p>If $𝑋=𝑋_1+ \cdots +𝑋_𝑛$ and each of $𝑋_1,\cdots, 𝑋_𝑛$ has a Bernoulli distribution with the same value of $𝑝$
- and they are independent, then $𝑋$   has a binomial distribution, and the possible values of $𝑋$ are $\{0,1,2,3,\cdots,𝑛\}$.</p>
-<p>If $𝑛=1$, then that binomial distribution is a Bernoulli distribution.</p>
 
 </div>
 </div>
@@ -12278,7 +12278,7 @@ $$</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ztest4ABtest</span><span class="p">(</span><span class="n">p_A</span><span class="p">,</span> <span class="n">p_B</span><span class="p">,</span> <span class="n">n_A</span><span class="p">,</span> <span class="n">n_B</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">sides</span><span class="p">):</span>
