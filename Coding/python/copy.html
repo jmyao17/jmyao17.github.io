@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>tree</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>copy</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11775,22 +11775,18 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Data-Structure:-Binary-tree">Introduction to Data Structure: Binary tree<a class="anchor-link" href="#Introduction-to-Data-Structure:-Binary-tree">&#182;</a></h1><p>A tree is a frequently-used data structure to simulate a hierarchical tree structure.</p>
-<p>Each node of the tree will have</p>
-<ul>
-<li>a root value </li>
-<li>and a list of references to other nodes which are called child nodes. </li>
+<h1 id="How-to-copy-an-object?">How to copy an object?<a class="anchor-link" href="#How-to-copy-an-object?">&#182;</a></h1><ul>
+<li><p>copy.copy(x)
+Return a shallow copy of x.</p>
+</li>
+<li><p>copy.deepcopy(x[, memo])
+Return a deep copy of x.</p>
+</li>
 </ul>
-<p>From graph view, a tree can also be defined as a directed acyclic graph which has N nodes and N-1 edges.</p>
-<p><strong>A Binary Tree is a tree data structure in which each node has at most two children:</strong></p>
+<p>The difference between shallow and deep copying is only relevant for compound objects (objects that contain other objects, like lists or class instances):</p>
 <ul>
-<li>left child</li>
-<li>right child. </li>
-</ul>
-<ul>
-<li>Understand the concept of a tree and a binary tree;</li>
-<li>Be familiar with different traversal methods;</li>
-<li>Use recursion to solve binary-tree-related problems;</li>
+<li>A shallow copy constructs a new compound object and then (to the extent possible) inserts references into it to the objects found in the original.</li>
+<li>A deep copy constructs a new compound object and then, recursively, inserts copies into it of the objects found in the original.</li>
 </ul>
 
 </div>
@@ -11800,69 +11796,16 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Traverse-A-Tree">Traverse A Tree<a class="anchor-link" href="#Traverse-A-Tree">&#182;</a></h2><ul>
-<li><p><strong>Pre-order Traversal</strong>: root -&gt; left subtree -&gt; right subtree.</p>
-</li>
-<li><p><strong>In-order traversal</strong>:: left subtree -&gt; root -&gt; right subtree.</p>
-</li>
-<li><p><strong>Post-order traversal</strong>: left subtree -&gt;  right subtree -&gt; root.</p>
-</li>
-</ul>
-<p><strong><em>when you delete nodes in a tree, deletion process will be in post-order. That is to say, when you delete a node, you will delete its left child and its right child before you delete the node itself.</em></strong></p>
-<p><strong><em>post-order is widely use in mathematical expression. It is easier to write a program to parse a post-order expression. </em></strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="144.-Binary-Tree-Preorder-Traversal"><strong>144. Binary Tree Preorder Traversal</strong><a class="anchor-link" href="#144.-Binary-Tree-Preorder-Traversal">&#182;</a></h3><p>Given a binary tree, return the preorder traversal of its nodes' values.</p>
-<p>Input: [1,null,2,3]</p>
-<p>1<br>
-   \<br>
-   2<br>
-  /<br>
- 3</p>
-<p>Output: [1,2,3]</p>
-
+<h1 id="A=B">A=B<a class="anchor-link" href="#A=B">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for a binary tree node.</span>
-<span class="c1"># class TreeNode:</span>
-<span class="c1">#     def __init__(self, x):</span>
-<span class="c1">#         self.val = x</span>
-<span class="c1">#         self.left = None</span>
-<span class="c1">#         self.right = None</span>
-
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">preorderTraversal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
-        
-        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-        
-        <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-        
-        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>     <span class="c1"># use while to do iteration</span>
-            
-            <span class="n">cur_node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>   <span class="c1"># pop out the node of the root and append its value</span>
-            
-            <span class="k">if</span> <span class="n">cur_node</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">cur_node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-                
-        <span class="k">return</span> <span class="n">result</span>
-            
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -11870,431 +11813,267 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">B</span><span class="o">=</span><span class="n">A</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1, 2, 3, 4, 5]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">B</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[5]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1, 2, 3, 4, 5]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="94.-Binary-Tree-Inorder-Traversal"><strong>94. Binary Tree Inorder Traversal</strong><a class="anchor-link" href="#94.-Binary-Tree-Inorder-Traversal">&#182;</a></h3><p>Given a binary tree, return the inorder traversal of its nodes' values.</p>
-<p>Example:</p>
-<p>Input: [1,null,2,3]</p>
-<p>1<br>
-    \<br>
-     2<br>
-    /<br>
-   3</p>
-<p>Output: [1,3,2]</p>
+<h1 id="B=copy.deepcopy(A)">B=copy.deepcopy(A)<a class="anchor-link" href="#B=copy.deepcopy(A)">&#182;</a></h1><p>B is indepdent with A</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="n">B</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">B</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[15]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[1, 2, 3, 4]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="p">,</span><span class="n">B</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[17]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([1, 2, 3, 4, 5], [1, 2, 3, 4])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">B</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="p">,</span><span class="n">B</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[19]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([1, 2, 3, 4, 5], [1, 2, 3, 4, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    
-    
-    <span class="k">def</span> <span class="nf">inorderTraversal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type root: TreeNode</span>
-<span class="sd">        :rtype: List[int]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-        
-        <span class="n">stack</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">],</span> <span class="p">[]</span>
-        <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-                
-                <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                    <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-                    <span class="n">root</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-        <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="145.-Binary-Tree-Postorder-Traversal"><strong>145. Binary Tree Postorder Traversal</strong><a class="anchor-link" href="#145.-Binary-Tree-Postorder-Traversal">&#182;</a></h3><p>Given a binary tree, return the postorder traversal of its nodes' values.</p>
-<p>Example:</p>
-<p>Input: [1,null,2,3]</p>
-<p>1<br>
-  \</p>
-<p>2<br>
-  /<br>
- 3</p>
-<p>Output: [3,2,1]</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[60]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">postorderTraversal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
-        
-        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-        
-        <span class="n">stack</span><span class="p">,</span><span class="n">result</span> <span class="o">=</span> <span class="p">[],[]</span>
-         
-        <span class="n">cur_node</span> <span class="o">=</span> <span class="n">root</span>
-        <span class="c1"># stack all the nodes into stack in the order: right-&gt;root-&gt;left</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">while</span> <span class="n">root</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                    <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span>
-
-            <span class="n">root</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-
-            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="ow">and</span> <span class="n">stack</span> <span class="ow">and</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="kc">None</span>
-
-            <span class="k">if</span>  <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span>
-                <span class="k">break</span>
-        <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Level-order-Traversal">Level-order Traversal<a class="anchor-link" href="#Level-order-Traversal">&#182;</a></h1><p>Level-order traversal is to traverse the tree level by level.</p>
-<ul>
-<li>Breadth-First Search is an algorithm to traverse or search in data structures like a tree or a graph. </li>
-<li>The algorithm starts with a root node and visit the node itself first. </li>
-<li>Then traverse its neighbors, traverse its second level neighbors, traverse its third level neighbors, so on and so forth.</li>
-</ul>
-<p>When we do breadth-first search in a tree, the order of the nodes we visited is in level order.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-102.-Binary-Tree-Level-Order-Traversal"><strong> 102. Binary Tree Level Order Traversal</strong><a class="anchor-link" href="#-102.-Binary-Tree-Level-Order-Traversal">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Given</span> <span class="n">a</span> <span class="n">binary</span> <span class="n">tree</span><span class="p">,</span> <span class="k">return</span> <span class="n">the</span> <span class="n">level</span> <span class="n">order</span> <span class="n">traversal</span> <span class="n">of</span> <span class="n">its</span> <span class="n">nodes</span><span class="s1">&#39; values. </span>
-<span class="p">(</span><span class="n">ie</span><span class="p">,</span> <span class="kn">from</span> <span class="nn">left</span> <span class="n">to</span> <span class="n">right</span><span class="p">,</span> <span class="n">level</span> <span class="n">by</span> <span class="n">level</span><span class="p">)</span><span class="o">.</span>
-
-<span class="n">For</span> <span class="n">example</span><span class="p">:</span>
-<span class="n">Given</span> <span class="n">binary</span> <span class="n">tree</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="n">null</span><span class="p">,</span><span class="n">null</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span>
-
-    <span class="mi">3</span>
-   <span class="o">/</span> \
-  <span class="mi">9</span>  <span class="mi">20</span>
-    <span class="o">/</span>  \
-   <span class="mi">15</span>   <span class="mi">7</span>
-<span class="k">return</span> <span class="n">its</span> <span class="n">level</span> <span class="n">order</span> <span class="n">traversal</span> <span class="k">as</span><span class="p">:</span>
-
-<span class="p">[</span>
-  <span class="p">[</span><span class="mi">3</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span>
-  <span class="p">[</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
-<span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[91]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">levelOrder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type root: TreeNode</span>
-<span class="sd">        :rtype: List[List[int]]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-
-        <span class="n">queue</span> <span class="o">=</span> <span class="p">[(</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
-        <span class="n">levelMap</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
-            <span class="n">node</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-
-            <span class="k">if</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levelMap</span><span class="p">:</span>
-                <span class="n">levelMap</span><span class="p">[</span><span class="n">level</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">levelMap</span><span class="p">[</span><span class="n">level</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">]</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">levelMap</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Test">Test<a class="anchor-link" href="#Test">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[104]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    
-    <span class="c1"># create a tree using nodes</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">left</span>  <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">val</span>   <span class="o">=</span> <span class="n">data</span>
-        
-    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">data</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># attention Node()</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-                    
-            <span class="k">if</span> <span class="n">data</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">data</span>
-            
-    <span class="k">def</span> <span class="nf">PrintTree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">PrintTree</span><span class="p">()</span> <span class="c1"># left nodes </span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>          <span class="c1"># root node</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">PrintTree</span><span class="p">()</span> <span class="c1"># right nodes </span>
-            
-            
-    <span class="c1">#root -&gt; left subtree -&gt; right subtree</span>
-    <span class="k">def</span> <span class="nf">preorderTraversal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        
-        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span>
-        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-        
-        <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-        
-        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>     <span class="c1"># use while to do iteration</span>
-            
-            <span class="n">cur_node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>   <span class="c1"># pop out the node of the root and append its value</span>
-            
-            <span class="k">if</span> <span class="n">cur_node</span><span class="o">.</span><span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">cur_node</span><span class="o">.</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-                
-        <span class="k">return</span> <span class="n">result</span>
-    
-    <span class="c1"># left subtree -&gt; root -&gt; right subtree</span>
-    <span class="k">def</span> <span class="nf">inorderTraversal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type root: TreeNode</span>
-<span class="sd">        :rtype: List[int]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-        
-        <span class="n">stack</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">],</span> <span class="p">[]</span>
-        <span class="k">while</span> <span class="n">stack</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-                
-                <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                    <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-                    <span class="n">root</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span>
-        <span class="k">return</span> <span class="n">result</span>
-    
-    
-    
-        <span class="c1"># left subtree -&gt; right subtree -&gt; root</span>
-    <span class="k">def</span> <span class="nf">postorderTraversal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            
-        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span>
-        
-        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-        
-        <span class="n">stack</span><span class="p">,</span><span class="n">result</span> <span class="o">=</span> <span class="p">[],[]</span>
-         
-        <span class="n">cur_node</span> <span class="o">=</span> <span class="n">root</span>
-        <span class="c1"># stack all the nodes into stack in the order: right-&gt;root-&gt;left</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-                
-                <span class="c1"># </span>
-            <span class="k">while</span> <span class="n">root</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                    <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span>
-
-            <span class="n">root</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-
-            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="ow">and</span> <span class="n">stack</span> <span class="ow">and</span> <span class="n">stack</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-                <span class="n">root</span> <span class="o">=</span> <span class="kc">None</span>
-
-            <span class="k">if</span>  <span class="nb">len</span><span class="p">(</span><span class="n">stack</span><span class="p">)</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span>
-                <span class="k">break</span>
-        <span class="k">return</span> <span class="n">result</span>
-    
-    
-    <span class="k">def</span> <span class="nf">postorderTraversal2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span>
-        <span class="n">cur_node</span> <span class="o">=</span> <span class="n">root</span> 
-        <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-        
-        <span class="k">while</span> <span class="n">stack</span> <span class="ow">or</span> <span class="n">cur_node</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">cur_node</span><span class="p">:</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="p">)</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-                <span class="n">cur_node</span> <span class="o">=</span> <span class="n">cur_node</span><span class="o">.</span><span class="n">right</span>
-            <span class="k">else</span><span class="p">:</span>   <span class="c1"># if cur_node without right node, pop out stack</span>
-                <span class="n">cur_node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-                <span class="n">cur_node</span> <span class="o">=</span> <span class="n">cur_node</span><span class="o">.</span><span class="n">left</span>
-                
-        <span class="k">return</span> <span class="n">result</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    
-    
-    
-    <span class="k">def</span> <span class="nf">levelOrder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type root: TreeNode</span>
-<span class="sd">        :rtype: List[List[int]]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span>
-        
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[]</span>
-
-        <span class="n">queue</span> <span class="o">=</span> <span class="p">[(</span><span class="n">root</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
-        <span class="n">levelMap</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
-            <span class="n">node</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
-
-            <span class="k">if</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levelMap</span><span class="p">:</span>
-                <span class="n">levelMap</span><span class="p">[</span><span class="n">level</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">levelMap</span><span class="p">[</span><span class="n">level</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">val</span><span class="p">]</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">levelMap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[113]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># creat the root node</span>
-
-<span class="c1"># add other nodes</span>
-<span class="c1">#    3</span>
-<span class="c1">#     \</span>
-<span class="c1">#     9</span>
-<span class="c1">#    / \  </span>
-<span class="c1">#   7  20 </span>
-<span class="c1">#  /</span>
-<span class="c1"># 15</span>
-
-<span class="n">root</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
-<span class="n">root</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">root</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">root</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[114]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">PrintTree</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;a&#39;</span>
+<span class="n">A</span><span class="p">,</span><span class="n">B</span>
 </pre></div>
 
 </div>
@@ -12307,48 +12086,13 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>3
-7
-9
-15
-20
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[115]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">levelOrder</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[115]:</div>
+<div class="prompt output_prompt">Out[24]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[3], [9], [7, 20], [15]]</pre>
+<pre>([&#39;a&#39;, 2, 3, 4, 5], [1, 2, 3, 4, 6])</pre>
 </div>
 
 </div>
@@ -12359,10 +12103,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[116]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">preorderTraversal</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;A&#39;</span>
+<span class="n">A</span><span class="p">,</span><span class="n">B</span>
 </pre></div>
 
 </div>
@@ -12375,112 +12120,13 @@ div#notebook {
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[116]:</div>
+<div class="prompt output_prompt">Out[25]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[3, 9, 7, 20, 15]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[117]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">inorderTraversal</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[117]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[3, 7, 9, 15, 20]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[118]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">postorderTraversal</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[118]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[7, 15, 20, 9, 3]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[119]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">postorderTraversal2</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[119]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[7, 15, 20, 9, 3]</pre>
+<pre>([&#39;a&#39;, 2, 3, 4, 5], [&#39;A&#39;, 2, 3, 4, 6])</pre>
 </div>
 
 </div>
@@ -12493,51 +12139,31 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="https://www.tutorialspoint.com/python/python_tree_traversal_algorithms.htm">https://www.tutorialspoint.com/python/python_tree_traversal_algorithms.htm</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="700.-Search-in-a-Binary-Search-Tree"><strong>700. Search in a Binary Search Tree</strong><a class="anchor-link" href="#700.-Search-in-a-Binary-Search-Tree">&#182;</a></h3><p>Given the root node of a binary search tree (BST) and a value. You need to find the node in the BST that the node's value equals the given value. Return the subtree rooted with that node. If such node doesn't exist, you should return NULL.</p>
-<p>For example,</p>
-<p>Given the tree:</p>
-
-<pre><code>    4
-   / \
-  2   7
- / \
-1   3
-
-</code></pre>
-<p>And the value to search: 2
-You should return this subtree:</p>
-
-<pre><code>  2     
- / \   
-1   3
-</code></pre>
-<p>In the example above, if we want to search the value 5, since there is no node with value 5, we should return NULL.</p>
-<p>Note that an empty tree is represented by NULL, therefore you would see the expected output (serialized tree format) as [], not null.</p>
-
+<h1 id="B=copy.copy(A)">B=copy.copy(A)<a class="anchor-link" href="#B=copy.copy(A)">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># creat the root node</span>
-<span class="n">root</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">root</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">root</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">root</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 
-<span class="n">root</span><span class="o">.</span><span class="n">levelOrder</span><span class="p">()</span>
+<span class="n">C</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="p">,</span><span class="n">C</span>
 </pre></div>
 
 </div>
@@ -12550,13 +12176,13 @@ You should return this subtree:</p>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[120]:</div>
+<div class="prompt output_prompt">Out[21]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[4], [2, 7], [1, 3]]</pre>
+<pre>([1, 2, 3, 4], [1, 2, 3, 4])</pre>
 </div>
 
 </div>
@@ -12567,50 +12193,11 @@ You should return this subtree:</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[155]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    
-    <span class="k">def</span> <span class="nf">searchBST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
-        
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        
-        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">root</span>
-        <span class="k">elif</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">val</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">searchBST</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">searchBST</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
-         
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[156]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">search</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[157]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subtree</span><span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">searchBST</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">subtree</span><span class="o">.</span><span class="n">levelOrder</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">A</span><span class="p">,</span><span class="n">C</span>
 </pre></div>
 
 </div>
@@ -12623,13 +12210,13 @@ You should return this subtree:</p>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[157]:</div>
+<div class="prompt output_prompt">Out[22]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[[2], [1, 3]]</pre>
+<pre>([1, 2, 3, 4, 5], [1, 2, 3, 4])</pre>
 </div>
 
 </div>
@@ -12640,10 +12227,11 @@ You should return this subtree:</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[159]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">search</span><span class="o">.</span><span class="n">searchBST</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;a&#39;</span>
+<span class="n">A</span><span class="p">,</span><span class="n">C</span>
 </pre></div>
 
 </div>
@@ -12656,13 +12244,83 @@ You should return this subtree:</p>
 
 <div class="output_area">
 
-<div class="prompt"></div>
+<div class="prompt output_prompt">Out[23]:</div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>None
-</pre>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([&#39;a&#39;, 2, 3, 4, 5], [1, 2, 3, 4])</pre>
 </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;A&#39;</span>
+<span class="n">A</span><span class="p">,</span><span class="n">C</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[26]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([&#39;a&#39;, 2, 3, 4, 5], [&#39;A&#39;, 2, 3, 4])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">A</span><span class="p">,</span><span class="n">C</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[27]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([&#39;a&#39;, 2, 3, 4, 5], [&#39;A&#39;, 2, 3, 4, 6])</pre>
+</div>
+
 </div>
 
 </div>
@@ -12673,83 +12331,122 @@ You should return this subtree:</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="65.-Univalued-Binary-Tree"><strong>65. Univalued Binary Tree</strong><a class="anchor-link" href="#65.-Univalued-Binary-Tree">&#182;</a></h3><p>A binary tree is univalued if every node in the tree has the same value.</p>
-<p>Return true if and only if the given tree is univalued.</p>
-<p>Example 1:</p>
-<p>Input: [1,1,1,1,1,null,1]
-Output: true
-Example 2:</p>
-<p>Input: [2,2,2,5,2]
-Output: false</p>
-<p>Note:</p>
-<p>The number of nodes in the given tree will be in the range [1, 100].
-Each node's value will be an integer in the range [0, 99].</p>
-
+<h1 id="Comparison">Comparison<a class="anchor-link" href="#Comparison">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[163]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for a binary tree node.</span>
-<span class="c1"># class TreeNode:</span>
-<span class="c1">#     def __init__(self, x):</span>
-<span class="c1">#         self.val = x</span>
-<span class="c1">#         self.left = None</span>
-<span class="c1">#         self.right = None</span>
-
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    
-    <span class="c1"># method 1</span>
-    <span class="k">def</span> <span class="nf">isUnivalTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-
-        <span class="n">all_values</span><span class="o">=</span><span class="p">[]</span>
-        
-        <span class="k">def</span> <span class="nf">add_values</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">root</span><span class="p">:</span>
-                <span class="n">all_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
-                <span class="n">add_values</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span> 
-                <span class="n">add_values</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span> 
-                
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        
-        
-        <span class="n">add_values</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-        
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">all_values</span><span class="p">))</span><span class="o">==</span><span class="mi">1</span>
-        
-        
-
-                 
-    <span class="c1"># method 2     </span>
-        
-    <span class="k">def</span> <span class="nf">isUnivalTree2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        
-        <span class="k">if</span> <span class="n">root</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">isUnivalTree</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">isUnivalTree</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span> <span class="ow">and</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">isUnivalTree</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">isUnivalTree</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="kc">False</span>
-                
-            <span class="k">return</span> <span class="kc">True</span>
-            
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">B</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">D</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">D</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[29]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">D</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[30]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([1, 2, 3, 4, 5], [1, 2, 3, 4], [1, 2, 3, 4])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;a&#39;</span>
+<span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">D</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[31]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([&#39;a&#39;, 2, 3, 4, 5], [1, 2, 3, 4], [1, 2, 3, 4])</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -12758,64 +12455,110 @@ Each node's value will be an integer in the range [0, 99].</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="101.-Symmetric-Tree-"><strong>101. Symmetric Tree </strong><a class="anchor-link" href="#101.-Symmetric-Tree-">&#182;</a></h3><p>Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).</p>
-<p>For example, this binary tree [1,2,2,3,4,4,3] is symmetric:</p>
-
-<pre><code>    1
-   / \
-  2   2
- / \  / \
-3   44   3
-
-
-</code></pre>
-<p>But the following [1,2,2,null,3,null,3] is not:</p>
-
-<pre><code>    1
-   / \
-  2   2
-   \   \
-    3   3
-
-</code></pre>
-<p>Note:
-Bonus points if you could solve it both recursively and iteratively.</p>
+<p>so far, everyting is the same</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[162]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition for a binary tree node.</span>
-<span class="c1"># class TreeNode:</span>
-<span class="c1">#     def __init__(self, x):</span>
-<span class="c1">#         self.val = x</span>
-<span class="c1">#         self.left = None</span>
-<span class="c1">#         self.right = None</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">]]</span>
 
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">isSymmetric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">root</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_leftright</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">left</span><span class="p">,</span><span class="n">root</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">check_leftright</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">node1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">node2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="n">node1</span> <span class="ow">and</span> <span class="n">node2</span> <span class="ow">and</span>  <span class="n">node1</span><span class="o">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">node2</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_leftright</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">left</span><span class="p">,</span><span class="n">node2</span><span class="o">.</span><span class="n">right</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_leftright</span><span class="p">(</span><span class="n">node1</span><span class="o">.</span><span class="n">right</span><span class="p">,</span><span class="n">node2</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+<span class="n">B</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">D</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">E</span><span class="o">=</span><span class="n">A</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;j&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">])</span>
+<span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">E</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[36]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([[1, 2, 3], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [&#39;i&#39;, &#39;j&#39;, &#39;k&#39;]],
+ [[1, 2, 3], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]],
+ [[1, 2, 3], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]],
+ [[1, 2, 3], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [&#39;i&#39;, &#39;j&#39;, &#39;k&#39;]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;II&#39;</span>
+<span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">E</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[37]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>([[1, &#39;II&#39;, 3], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [&#39;i&#39;, &#39;j&#39;, &#39;k&#39;]],
+ [[1, &#39;II&#39;, 3], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]],
+ [[1, 2, 3], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]],
+ [[1, &#39;II&#39;, 3], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;], [&#39;i&#39;, &#39;j&#39;, &#39;k&#39;]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The difference is shown up!</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
