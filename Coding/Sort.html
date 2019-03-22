@@ -11782,7 +11782,7 @@ div#notebook {
 <p>$$
 T(n) = 
 \begin{cases}
- O(n^2), &amp; Naive/Brute-force~~algorithm,\\
+ O(n^2), &amp; Naive/Brute-force~~algorithm, insertion sort\\
  O(n log n), &amp; heapsort, merge sort, quick sort
 \end{cases}
 $$</p>
@@ -11989,7 +11989,7 @@ Time elapse: 0.0010328292846679688
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
@@ -12022,7 +12022,7 @@ Time elapse: 0.0010328292846679688
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[105]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
@@ -12047,7 +12047,161 @@ Time elapse: 0.0010328292846679688
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>None
-0.0002961158752441406
+0.0006389617919921875
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="counting-sort"><a href="https://www.interviewcake.com/concept/java/counting-sort">counting sort</a><a class="anchor-link" href="#counting-sort">&#182;</a></h1><p><strong>Strengths:</strong></p>
+<p>Linear time. Counting sort runs in O(n), making it asymptotically faster than comparison-based sorting algorithms like quicksort or merge sort.</p>
+<p><strong>Weaknesses:</strong></p>
+<p>Restricted inputs. Counting sort only works when the range of potential items in the input is known ahead of time. Space cost. If the range of potential values is big, then counting sort requires a lot of space.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">counting_sort</span><span class="p">(</span><span class="n">theList</span><span class="p">,</span><span class="n">max_value</span><span class="p">):</span> 
+    
+    
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">max_value</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    
+    
+    <span class="c1"># put the numbers in theList on the coordinate</span>
+    <span class="c1"># if the number exist, counting its frequency and put the frequency at the position</span>
+    
+    <span class="c1"># for example: theList=[2,4,3,4], the max value is 4</span>
+    <span class="c1"># counts = [0,0,0,0,0]</span>
+    <span class="c1">#           / / / / /</span>
+    <span class="c1">#          0 1 2 3 4 </span>
+    
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">theList</span><span class="p">:</span>
+        <span class="n">counts</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        
+    <span class="c1"># Now, counts becomes [0,0,1,1,2]</span>
+    <span class="c1"># Overwrite counts to hold the next index an item with</span>
+    <span class="c1"># a given value goes. </span>
+    <span class="n">accumulate</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">counts</span><span class="p">):</span>
+        <span class="n">counts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">=</span> <span class="n">accumulate</span>
+        <span class="n">accumulate</span> <span class="o">+=</span> <span class="n">count</span>
+        
+    <span class="c1"># Now counts becomes [0,0,0,1,2] </span>
+    
+    
+    <span class="n">sorted_list</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">theList</span><span class="p">)</span>
+    
+    <span class="c1"># theList[2,4,3,4]</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">theList</span><span class="p">:</span>
+        
+        <span class="c1"># Place the item in the sorted list</span>
+        
+        <span class="c1"># counts[2] = 0 -&gt; sorted_list[0] = 2 -&gt; counts[2]=1</span>
+        <span class="c1"># counts[4] = 2 -&gt; sorted_list[2] = 4 -&gt; counts[4]=3</span>
+        <span class="c1"># counts[3] = 1 -&gt; sorted_list[1] = 3 -&gt; counts[3]=2</span>
+        <span class="c1"># counts[4] = 3 -&gt; sorted_list[2] = 4 -&gt; counts[4]=4</span>
+        <span class="n">sorted_list</span><span class="p">[</span><span class="n">counts</span><span class="p">[</span><span class="n">num</span><span class="p">]]</span> <span class="o">=</span> <span class="n">num</span>
+        
+        <span class="c1"># And, make sure the next item we see with the same value</span>
+        <span class="c1"># goes after the one we just placed</span>
+        <span class="n">counts</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    
+    <span class="k">return</span> <span class="n">sorted_list</span>
+        
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">counting_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[0, 0, 0, 1, 2]
+[2, 3, 4, 4]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># randomly take 50 integer numbers in between 0 and 100</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">counting_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">A</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">ts</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[2, 4, 6, 7, 8, 8, 15, 18, 18, 18, 19, 19, 21, 22, 23, 24, 41, 44, 44, 47, 47, 49, 51, 51, 51, 52, 53, 59, 61, 62, 64, 66, 66, 72, 74, 76, 77, 77, 78, 78, 78, 79, 80, 90, 90, 92, 92, 93, 93, 96]
+0.0005400180816650391
 </pre>
 </div>
 </div>
