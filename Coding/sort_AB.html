@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Untitled</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>sort_AB</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11789,7 +11789,7 @@ which returns -1, 0 or 1 if element in A is smaller, equal to, or larger than th
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Code">Code<a class="anchor-link" href="#Code">&#182;</a></h1>
+<h1 id="Code">Code<a class="anchor-link" href="#Code">&#182;</a></h1><h2 id="brute-force">brute force<a class="anchor-link" href="#brute-force">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11867,6 +11867,70 @@ which returns -1, 0 or 1 if element in A is smaller, equal to, or larger than th
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="quick-sort">quick sort<a class="anchor-link" href="#quick-sort">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># define a function for the comparison</span>
+<span class="k">def</span> <span class="nf">compare_function</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">a</span><span class="o">&gt;</span><span class="n">b</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">a</span><span class="o">==</span><span class="n">b</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+            
+<span class="k">def</span> <span class="nf">partition</span><span class="p">(</span><span class="n">AB</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">i_ref</span><span class="p">):</span>
+    <span class="p">(</span><span class="n">AB</span><span class="p">[</span><span class="n">i_ref</span><span class="p">],</span> <span class="n">AB</span><span class="p">[</span><span class="n">r</span><span class="p">])</span> <span class="o">=</span> <span class="p">(</span><span class="n">AB</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">AB</span><span class="p">[</span><span class="n">i_ref</span><span class="p">])</span>
+    
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">AB</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="mi">1</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">compare_function</span><span class="p">(</span><span class="n">AB</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">ref</span><span class="p">)</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="p">(</span><span class="n">AB</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">AB</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">=</span> <span class="p">(</span><span class="n">AB</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">AB</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+    <span class="p">(</span><span class="n">AB</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">AB</span><span class="p">[</span><span class="n">r</span><span class="p">])</span> <span class="o">=</span> <span class="p">(</span><span class="n">AB</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="n">AB</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">linked_partition</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">compare_function</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">i</span>
+        
+<span class="k">def</span> <span class="nf">quick_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">&lt;</span><span class="n">r</span><span class="p">:</span>
+        <span class="n">i_ref</span> <span class="o">=</span> <span class="n">linked_partition</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">i_A</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">i_ref</span><span class="p">)</span>
+        <span class="n">i_B</span> <span class="o">=</span> <span class="n">partition</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">i_ref</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">i_A</span> <span class="o">!=</span> <span class="n">i_B</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+        
+        <span class="n">quick_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">i_A</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">quick_sort</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">i_A</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Test">Test<a class="anchor-link" href="#Test">&#182;</a></h1><p>For the sake of simplicity and test</p>
 
 </div>
@@ -11885,6 +11949,14 @@ which returns -1, 0 or 1 if element in A is smaller, equal to, or larger than th
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="test-brute-force-method">test brute-force method<a class="anchor-link" href="#test-brute-force-method">&#182;</a></h2>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -11926,6 +11998,58 @@ which returns -1, 0 or 1 if element in A is smaller, equal to, or larger than th
 <pre>([2, 3, 4, 5, 6, 7], [2, 3, 4, 5, 6, 7])</pre>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="test-quick_sort">test quick_sort<a class="anchor-link" href="#test-quick_sort">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">quick_sort</span><span class="p">(</span><span class="n">listA</span><span class="p">,</span><span class="n">listB</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">listA</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">listA</span><span class="p">,</span> <span class="n">listB</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[2, 3, 4, 5, 6, 7] [2, 3, 4, 5, 6, 7]
+</pre>
+</div>
 </div>
 
 </div>
